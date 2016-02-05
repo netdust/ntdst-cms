@@ -1,0 +1,6 @@
+.idea
+node_modules
+bin
+dist
+src/bower_components
+src/www/admin/system/vendor
