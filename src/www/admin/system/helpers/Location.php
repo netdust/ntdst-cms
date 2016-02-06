@@ -57,7 +57,7 @@ class Location
 
     protected  static function _path($asset, $item) {
         $app = \Slim\Slim::getInstance();
-        return  self::to( 'public/themes/' . $app->config('theme')->theme. '/'.  $asset. '/' . $item );
+        return  self::to( 'public/themes/' . $app->config('site')->theme. '/'.  $asset. '/' . $item );
     }
 
     public static function to($uri) {

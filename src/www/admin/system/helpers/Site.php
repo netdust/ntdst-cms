@@ -7,13 +7,14 @@
 namespace helpers;
 
 use \Slim\Slim;
-use \api\Controller\PageController;
+use \api\Controller\ConfigController;
 
 class Site
 {
 
     static function name()
     {
+        global $app;
         return '';
     }
     static function logo()
@@ -27,7 +28,8 @@ class Site
 
     static function charset()
     {
-        return '';
+        global $app;
+        return $app->config('site')->charset;
     }
 
     static function language_attr()

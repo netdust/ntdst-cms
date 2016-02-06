@@ -26,7 +26,7 @@ class TemplateController extends \api\Controller\JsonController
 
     public function find_templates() {
 
-        $theme = $this->app->config('theme')->theme; //\Model::factory('Config')->where('key', 'theme' )->find_one();
+        $theme = $this->app->config('site')->theme;
 
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__ROOT__ .'public/themes/'.$theme)) as $filename)
         {

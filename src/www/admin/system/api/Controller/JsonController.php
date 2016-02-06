@@ -38,7 +38,7 @@ class JsonController extends \api\Controller\Controller
     protected function init_data( $key='' ) {
         $this->load();
         $this->key = $key;
-        $this->data_array = (array) $this->app->config('theme')->{$this->key};
+        $this->data_array = (array) $this->app->config('site')->{$this->key};
     }
 
     protected function post_data( $data ) {
@@ -55,12 +55,12 @@ class JsonController extends \api\Controller\Controller
 
     protected function load( ) {
         $json = file_get_contents(__ROOT__.$this->file);
-        $this->app->config('theme', json_decode($json));
+        $this->app->config('site', json_decode($json));
     }
 
     protected function save( ) {
-        $this->app->config('theme')->{$this->key} = (array) $this->data_array;
-        file_put_contents(__ROOT__.$this->file, json_encode($this->app->config('theme')));
+        $this->app->config('site')->{$this->key} = (array) $this->data_array;
+        file_put_contents(__ROOT__.$this->file, json_encode($this->app->config('site')));
         $this->render( 200, $this->data_array );
     }
 

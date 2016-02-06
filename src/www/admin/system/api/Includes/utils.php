@@ -61,27 +61,3 @@ function send_mail( $from, $email, $tpl, $data=array() ) {
     }
 }
 
-function url() {
-    $app = \Slim\Slim::getInstance();
-    return  $app->request->getUrl();
-}
-
-function host() {
-    $app = \Slim\Slim::getInstance();
-    return  $app->request->getHost();
-}
-
-function root() {
-    $app = \Slim\Slim::getInstance();
-    return  $app->request->getRootUri();
-}
-
-function resource() {
-    $app = \Slim\Slim::getInstance();
-    return  $app->request->getResourceUri();
-}
-
-function path() {
-    $app = \Slim\Slim::getInstance();
-    return  $app->request->getPath();
-}

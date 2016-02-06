@@ -134,7 +134,7 @@ $app->hook('slim.before.dispatch', function () use ($app) {
         $param = explode( '/', $resource );
 
         // get Page
-        $home = \api\Controller\PageController::getPage($app->config('theme')->home)->slug;
+        $home = \api\Controller\PageController::getPage($app->config('site')->home)->slug;
         $uri = $param[0]!='' ? $param : explode('/', $home);
 
         $app->page = \api\Controller\PageController::slug($uri);
@@ -153,7 +153,7 @@ $app->hook('slim.before.dispatch', function () use ($app) {
 
         'page' => new \helpers\Page,
 
-        'site' => $app->config('theme'),
+        'site' => $app->config('site'),
 
         'loc' => array(
             'url' => $app->request()->getUrl() .$app->request()->getScriptName().'/'.$app->config('language').$app->request()->getResourceUri(), //$app->request()->getUrl() .$app->request()->getScriptName(),
@@ -162,7 +162,7 @@ $app->hook('slim.before.dispatch', function () use ($app) {
             'hostname' => $app->request()->getHost(),
             'root' => __ROOT__.'public/',
             'path' => $app->request()->getScriptName(),
-            'theme' => __ROOT__.'public/themes/'.$app->config('theme')->theme.DS
+            'theme' => __ROOT__.'public/themes/'.$app->config('site')->theme.DS
         ),
 
         'lang' => $app->config('language'),

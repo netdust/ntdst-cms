@@ -12,18 +12,17 @@ class Page
     {
         $app = \Slim\Slim::getInstance();
 
-        if( $method=='page' ) return $app->page;
-        else if( isset( $params ) ){
-                $p = self::_findPage( $params[0] );
-                if($p) $page = $p;
-            }
-
+        if( isset( $params ) && count( $params) > 0 ){
+            $p = self::_findPage( $params[0] );
+            if($p) $page = $p;
+        }
 
         if( !isset( $page ) ) {
             $page = $app->page;
         }
 
         if( isset( $page ) ){
+
 
             if( method_exists( $page, $method ) ) {
                 $v = call_user_func(array($page, $method) );
@@ -141,6 +140,10 @@ class Page
 
     static function isPublished() {
         return self::status() == 'published';
+    }
+
+    public static function body_class() {
+        return self::type().( self::isHome()?' home':' ').self::slug();
     }
 
     private static function _findPage( $id ) {
