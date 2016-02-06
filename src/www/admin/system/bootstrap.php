@@ -124,7 +124,7 @@ try {
 
 $app->hook('slim.before.dispatch', function () use ($app) {
 
-    $iscms = (bool)strpos($_SERVER['REQUEST_URI'],'cms');
+    $iscms = (bool)preg_match('|/cms.*$|', $_SERVER['REQUEST_URI']);
     $isapi = (bool)preg_match('|/api/v.*$|', $_SERVER['REQUEST_URI']);
 
     if (!$iscms && !$isapi) {
