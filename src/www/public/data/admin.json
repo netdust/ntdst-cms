@@ -123,17 +123,17 @@
         {
           "type": "Text",
           "key": "mailto",
-          "tab": ""
+          "tab": "form"
         },
         {
           "type": "TextArea",
           "key": "confirmation",
-          "tab": ""
+          "tab": "form"
         },
         {
           "type": "TextArea",
           "key": "error message",
-          "tab": ""
+          "tab": "form"
         }
       ],
       "path": "templates\/form"

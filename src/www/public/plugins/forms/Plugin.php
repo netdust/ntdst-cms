@@ -1,5 +1,7 @@
 <?php
 
+/* @todo: update template ( the json file ) settings from here */
+
 namespace plugins\forms;
 use Slim\Slim;
 
@@ -24,7 +26,6 @@ class Plugin extends \Slim\Middleware {
         $this->app->container->singleton(__NAMESPACE__, function () {
             return $this;
         });
-
 
         // call before admin renders
         $app->hook('admin.before.render', function ( $args ) use ($app) {
@@ -63,9 +64,15 @@ class Plugin extends \Slim\Middleware {
 
         $app->get('/api/v1/form/:id', array(&$this, 'actionGetForm'))
             ->name('get_forms');
+
+        $app->post('/api/v1/form/:id', array(&$this, 'actionPostForm'))
+            ->name('post_form');
+
+        $app->put('/api/v1/form/:id', array(&$this, 'actionPutForm'))
+            ->name('put_form');
     }
 
-    public function actionGetForm( $id )
+    protected function _actionGetForm( $id )
     {
         $form = \Model::factory('Page')->where('id', $id)->find_one();
         $arr = $form->as_array();
@@ -75,13 +82,29 @@ class Plugin extends \Slim\Middleware {
             $meta_arr['page_meta_translation'] = $meta->translations()->find_array();
             return $meta_arr;
         }, $form->metas()->find_many() );
-        $this->app->render( 200, $arr );
+
+        return $arr;
+    }
+
+    public function actionGetForm( $id )
+    {
+        $this->app->render( 200, $this->_actionGetForm( $id ) );
     }
 
     public function actionGetForms( )
     {
         $query = \Model::factory('Page')->where('type', 'form');
         $this->app->render( 200, $query->find_array() );
+    }
+
+    public function actionPostForm( $id )
+    {
+        $this->app->render( 200, $this->_actionGetForm( $id ) );
+    }
+
+    public function actionPutForm( $id )
+    {
+        $this->app->render( 200, $this->_actionGetForm( $id ) );
     }
 
 
@@ -110,21 +133,21 @@ class Plugin extends \Slim\Middleware {
             return $cb( $id, $label, $value, $required, $arg );
         };
 
-        shortcode( 'submit', function($arg)  {
+        \helpers\Util::register_shortcode( 'submit', function($arg)  {
             $arg['type'] = 'submit';
             $arg['class'] = 'button ' . ( isset( $arg['class'] ) ? $arg['class']  : '' );
             return \helpers\html::input( '', $arg );
         });
-        shortcode( 'button', function($arg)  {
+        \helpers\Util::register_shortcode( 'button', function($arg)  {
             $arg['type'] = 'button';
             return \helpers\html::input( '', $arg );
         });
-        shortcode( 'label', function($arg) use ( $handle_args )  {
+        \helpers\Util::register_shortcode( 'label', function($arg) use ( $handle_args )  {
             return $handle_args($arg, function($id, $label, $value, $required, $arg) {
                 return '<label for="'.$id.'">'.$label. ( $required && $label!='' ? " *":"" ).'</label>';
             } );
         });
-        shortcode( 'text', function($arg) use ( $handle_args )  {
+        \helpers\Util::register_shortcode( 'text', function($arg) use ( $handle_args )  {
             $arg['type'] = isset( $arg['type'] ) ? $arg['type']  : 'text';
             return $handle_args($arg, function($id, $label, $value, $required, $arg) {
                 $el ='';
@@ -135,7 +158,7 @@ class Plugin extends \Slim\Middleware {
                 return $el;
             } );
         });
-        shortcode( 'select', function($arg) use( $handle_args )  {
+        \helpers\Util::register_shortcode( 'select', function($arg) use( $handle_args )  {
             $options = explode( ',', $arg['options'] );
             array_walk($options, function (&$v, $k) { $v = '<option>'.$v.'</option>'; });
             return $handle_args($arg, function($id, $label, $value, $required, $arg) use ( $options ) {
@@ -147,7 +170,7 @@ class Plugin extends \Slim\Middleware {
                 return $el;
             } );
         });
-        shortcode( 'radio', function($arg) use ( $handle_args )  {
+        \helpers\Util::register_shortcode( 'radio', function($arg) use ( $handle_args )  {
             $arg['type'] = 'radio';
             return $handle_args($arg, function($id, $label, $value, $required, $arg) {
                 $el ='';
@@ -158,7 +181,7 @@ class Plugin extends \Slim\Middleware {
                 return $el;
             } );
         });
-        shortcode( 'checkbox', function($arg) use ( $handle_args )  {
+        \helpers\Util::register_shortcode( 'checkbox', function($arg) use ( $handle_args )  {
             $arg['type'] = 'checkbox';
             return $handle_args($arg, function($id, $label, $value, $required, $arg) {
                 $el ='';
@@ -169,6 +192,14 @@ class Plugin extends \Slim\Middleware {
                 return $el;
             } );
         });
+        \helpers\Util::register_shortcode( 'form', function($arg) use ( $handle_args )  {
+            $form = $this->_actionGetForm( $arg['id'] );
+            return '<form id="form_'.$arg['id'].'" method="post" action="'. \helpers\Location::to('form/'.$arg['id']) .'">
+                        <input type="hidden" name="csrf_key" value="'. $_SESSION['csrf_token'] .'">
+                        <input type="hidden" name="form" value="'.$arg['id'].'">
+                        '. \helpers\Util::parse_shortcode($form['page_translation']['content']) .'
+                    </form>';
+        });
 
     }
 
@@ -176,14 +207,12 @@ class Plugin extends \Slim\Middleware {
      * load js plugin for admin
      */
     protected function render( $args ){
-
         $app = Slim::getInstance();
         array_splice( $args->modules, 1, 0, (array) array( array( "name"=>"Forms", "path"=>"form", "icon"=>"clipboard", 'require'=>$app->request()->getScriptName().'/public/plugins/forms/js/module.js') ) );
         array_walk($args->modules, function (&$item, $key)
         {
             $item['id']=$key;
         });
-
     }
 
 }

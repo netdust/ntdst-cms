@@ -115,9 +115,12 @@ define(function (require) {
             this.templates = ntdst.api.modelFactory( 'templates' );
             this.tpl = this.templates.where({label:template_name})[0];
 
+            console.log( this.templates );
+            console.log( template_name );
+            console.log( this.tpl );
+
             if( this.tpl != undefined ) {
                 tabs = this.tpl.getTabs();
-
 
                 _.each( tabs, function(item) {
                     tabshtml.find('dl.tabs').append('<dd><a href="#panel_'+item+'">'+item+'</a></dd>');
@@ -135,8 +138,6 @@ define(function (require) {
                 } );
 
             }
-
-            console.log( $('<div />').append( tabshtml.eq(0).clone()).html()  );
 
             return  _.template( $('<div />').append( tabshtml.eq(0).clone()).html() );
         }
