@@ -22,9 +22,12 @@ class JsonController extends \api\Controller\Controller
     public function post(  )
     {
         $request = (array) json_decode($this->app->request()->getBody());
-        $m = $this->search( 'label', $request['label'] );
-        if( count($m)>0 ) {
-            $this->put_data( $m, $request );
+        if( isset( $request['label'] ) ) {
+            $m = $this->search( 'label', $request['label'] );
+            if( count($m)>0 ) {
+                $this->put_data( $m, $request );
+            }
+            else $this->post_data( $request );
         }
         else
             $this->post_data( $request );
@@ -42,13 +45,11 @@ class JsonController extends \api\Controller\Controller
     }
 
     protected function post_data( $data ) {
-        $this->data_array[] = (object) $data;
+        $this->data_array = (array) $data;
         $this->save();
     }
 
     protected function put_data( $model, $data ) {
-        var_dump( $this->data_array );
-
         $this->data_array = array_replace( $this->data_array, array( max(array_keys($model)) => (object) $data ));
         $this->save();
     }
@@ -59,7 +60,12 @@ class JsonController extends \api\Controller\Controller
     }
 
     protected function save( ) {
-        $this->app->config('site')->{$this->key} = (array) $this->data_array;
+        if( $this->key != '' ) {
+            $this->app->config('site')->{$this->key} = $this->data_array;
+        }
+        else {
+            $this->app->config('site', $this->data_array );
+        }
         file_put_contents(__ROOT__.$this->file, json_encode($this->app->config('site')));
         $this->render( 200, $this->data_array );
     }

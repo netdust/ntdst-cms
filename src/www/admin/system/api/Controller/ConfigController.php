@@ -12,7 +12,7 @@ class ConfigController extends \api\Controller\JsonController
 
     protected function init_data( $key='' ) {
         $this->load();
-        $this->data_array = $this->app->config('site');
+        $this->data_array = (array) $this->app->config('site');
     }
 
 }
