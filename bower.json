@@ -44,7 +44,8 @@
     "jquery-ui": "~1.11.4",
     "components-font-awesome": "~4.3.0",
     "normalize.css": "~3.0.1",
-    "spin.js": "~2.0.1"
+    "spin.js": "~2.0.1",
+    "formstone": "^0.8.38"
   },
   "resolutions": {
     "backbone": ">=1.2.1"

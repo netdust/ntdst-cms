@@ -34,6 +34,8 @@
     "gulp-shell": "^0.4.0",
     "gulp-template": "^1.0.0",
     "jshint-stylish": "^2.1.0",
+    "postcss": "^5.0.14",
+    "postcss-cssnext": "^2.4.0",
     "run-sequence": "^1.1.5"
   },
   "scripts": {
