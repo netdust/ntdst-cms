@@ -15,7 +15,7 @@ if (!$iscms && !$isapi) {
     $app->add(new \api\Middleware\I18n(array(
         'fr' => 'Français',
         'nl' => 'Nederlands'
-    )));
+    ),true));
 
     $app->get('/(:slug+)', function ($slug = '') use ($app) {
         if( $app->page == null ) $app->notFound();

@@ -65,11 +65,11 @@ class I18n extends \Slim\Middleware {
      */
     protected function addRoutes() {
         $app = $this->app;
-        $_this = $this;
 
         $app->get('/language', array(&$this, 'actionSwitchLanguage'))
             ->name('lang');
     }
+
 
     /**
      * Action to switch application language.
@@ -148,7 +148,6 @@ class I18n extends \Slim\Middleware {
         $_SESSION['language.id'] = array_search( $_SESSION['language'], array_keys($this->languages)) + 1;
 
         return $_SESSION['language'];
-
     }
 
     /**
@@ -246,7 +245,7 @@ class I18n extends \Slim\Middleware {
         $uriShouldBe = $this->changeResourceLanguage($resourceUri, $userLanguage);
 
         if ($uriShouldBe != $resourceUri && $this->redirect) {
-            $app->redirect($uriShouldBe);
+            $app->redirect(\helpers\Location::to( $uriShouldBe ), 301);
         } else {
 
             $app->config('languages', $this->languages);
@@ -255,7 +254,6 @@ class I18n extends \Slim\Middleware {
             $app->config('language.name', $this->languages[$userLanguage]);
 
             $realPath = $this->stripLanguage($resourceUri, $userLanguage);
-
 
             $environment = $app->environment();
             $environment->offsetSet('PATH_INFO', '/'.ltrim($realPath,'/'));
