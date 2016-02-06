@@ -19,23 +19,23 @@ class JsonController extends \api\Controller\Controller
         $this->render( 200, $this->data_array );
     }
 
-    public function post(  )
+    public function post( )
     {
         $request = (array) json_decode($this->app->request()->getBody());
-        if( isset( $request['label'] ) ) {
-            $m = $this->search( 'label', $request['label'] );
+
+        if( isset( $request['id'] ) ) {
+            $m = $this->search( 'id', $request['id'] );
             if( count($m)>0 ) {
                 $this->put_data( $m, $request );
             }
-            else $this->post_data( $request );
         }
         else
             $this->post_data( $request );
     }
 
-    public function put(  )
+    public function put( $id  )
     {
-        $this->post();
+        $this->post( );
     }
 
     protected function init_data( $key='' ) {
@@ -66,12 +66,11 @@ class JsonController extends \api\Controller\Controller
         else {
             $this->app->config('site', $this->data_array );
         }
-
         file_put_contents(__ROOT__.$this->file, json_encode($this->app->config('site')));
-        $this->render( 200, $this->data_array );
+        $this->render( 200, (array) json_decode($this->app->request()->getBody()) );
     }
 
-    protected function search( $key, $value, $index=true ) {
+    protected function search( $key, $value, $index=false ) {
         $results = array_filter( $this->data_array, function($item) use ( $key, $value ){
             return $item->{$key} == $value;
         } );

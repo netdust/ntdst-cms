@@ -130,7 +130,6 @@ define(function (require) {
                 label:               'label is required',
                 description:         'description is required'
             },
-
             initialize: function () {
                 this.set( 'path', 'plugins/' + this.get('label') );
             }

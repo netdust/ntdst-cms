@@ -62,7 +62,7 @@ define(function (require) {
         },
 
         _addPluginSetting : function(  value, key ) {
-            if( $.inArray( key, ['namespace','path','installed', 'label', 'description'] ) == -1 ) {
+            if( $.inArray( key, ['namespace','id','path','installed', 'label', 'description'] ) == -1 ) {
                 this._addItem( value, key );
             }
         },
