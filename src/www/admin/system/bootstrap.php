@@ -80,11 +80,11 @@ try {
 
 // load configuration
 try {
-    $app->config($config);
-    $themeconfigcontroller = new \api\Controller\ConfigController();
-    $themeconfig = (array) $app->config('site');
+      $app->config($config);
+      $themeconfigcontroller = new \api\Controller\ConfigController();
+      $themeconfig = (array) $app->config('site');
 } catch (\PDOException $e) {
-    $app->getLog()->error($e->getMessage());
+      $app->getLog()->error($e->getMessage());
 }
 
 // Plugins
@@ -102,83 +102,64 @@ $view->twigTemplateDirs = array(
     __ROOT__ .'public/themes/'.$themeconfig['theme'].DS
 );
 $view->parserOptions = array(
-    'debug' => true,
+    'debug' => HTML5_DEBUG,
     'cache' => __ROOT__.'public/data/cache'
 );
-$view->parserExtensions = array(
-    new \api\Extensions\ApiHelpers(),
-    new \api\Extensions\ShareHelpers(),
-    new \Aptoma\Twig\Extension\MarkdownExtension( new \Aptoma\Twig\Extension\MarkdownEngine\MichelfMarkdownEngine() ),
-);
 
+if( !$app->isAPI() ) {
 
-// Init themes and function
-try {
-    if(is_readable($path=__ROOT__.'public/themes/'.$themeconfig['theme'].DS.'functions.php')) {
-        require $path;
-    }
-} catch (\PDOException $e) {
-    $app->getLog()->error($e->getMessage());
-}
-
-
-$app->hook('slim.before.dispatch', function () use ($app) {
-
-    $iscms = (bool)preg_match('|/cms.*$|', $_SERVER['REQUEST_URI']);
-    $isapi = (bool)preg_match('|/api/v.*$|', $_SERVER['REQUEST_URI']);
-
-    if (!$iscms && !$isapi) {
-        $app->applyHook('before.page');
-
-        $resource = ltrim($app->request()->getResourceUri(),'/');
-        $param = explode( '/', $resource );
-
-        // get Page
-        $home = \api\Controller\PageController::getPage($app->config('site')->home)->slug;
-        $uri = $param[0]!='' ? $param : explode('/', $home);
-
-        $app->page = \api\Controller\PageController::slug($uri);
-
-        $app->applyHook('after.page');
-    }
-});
-
-$app->hook('slim.before.dispatch', function () use ($app) {
-
-    // get Template
-
-    $templateData = (object) array(
-
-        'body_classes' => 'page ',
-
-        'page' => new \helpers\Page,
-
-        'site' => $app->config('site'),
-
-        'loc' => array(
-            'url' => $app->request()->getUrl() .$app->request()->getScriptName().'/'.$app->config('language').$app->request()->getResourceUri(), //$app->request()->getUrl() .$app->request()->getScriptName(),
-
-            'host' => $app->request()->getUrl(),
-            'hostname' => $app->request()->getHost(),
-            'root' => __ROOT__.'public/',
-            'path' => $app->request()->getScriptName(),
-            'theme' => __ROOT__.'public/themes/'.$app->config('site')->theme.DS
-        ),
-
-        'lang' => $app->config('language'),
-
-        'get' => $_GET,
-        'post' => $_POST,
-        'cookie' => $_COOKIE,
-        'session' => $_SESSION,
-
-        'production' => ! HTML5_DEBUG
-
+    // Init themes and function
+    $view->parserExtensions = array(
+        new \api\Extensions\ApiHelpers(),
+        new \api\Extensions\ShareHelpers(),
+        new \Aptoma\Twig\Extension\MarkdownExtension(new \Aptoma\Twig\Extension\MarkdownEngine\MichelfMarkdownEngine()),
     );
 
-    $app->applyHook('data', $templateData );
-    $app->view()->appendData( (array) $templateData );
-});
+
+    try {
+        if (is_readable($path = __ROOT__ . 'public/themes/' . $themeconfig['theme'] . DS . 'functions.php')) {
+            require $path;
+        }
+    } catch (\PDOException $e) {
+        $app->getLog()->error($e->getMessage());
+    }
+
+
+    $app->hook('slim.before.dispatch', function () use ($app) {
+
+        $iscms = (bool)preg_match('|/cms.*$|', $_SERVER['REQUEST_URI']);
+
+        if (!$iscms) {
+
+            $templateData = (object)array(
+                'lang' => $app->config('language'),
+                'get' => $_GET,
+                'post' => $_POST,
+                'cookie' => $_COOKIE,
+                'session' => $_SESSION,
+                'production' => !HTML5_DEBUG
+            );
+
+            $app->applyHook('data', $templateData);
+            $app->view()->appendData((array)$templateData);
+
+
+            $app->applyHook('before.page');
+
+            $resource = ltrim($app->request()->getResourceUri(), '/');
+            $param = explode('/', $resource);
+
+            // get Page
+            $home = \api\Controller\PageController::getPage($app->config('site')->home)->slug;
+            $uri = $param[0] != '' ? $param : explode('/', $home);
+
+            $app->page = \api\Controller\PageController::slug($uri);
+
+            $app->applyHook('after.page');
+        }
+    });
+
+}
 
 
 function require_all($mod) {

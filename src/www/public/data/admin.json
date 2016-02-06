@@ -29,7 +29,7 @@
       "label": "analytics",
       "namespace": "plugins\\analytics",
       "installed": "1",
-      "ga": "UA-123456789-98",
+      "ga": "UA-123456789-97",
       "description": "Adds analytics each html-page",
       "path": "plugins\/analytics"
     },
@@ -59,6 +59,14 @@
           "query": "(min-width: 1000px)"
         }
       }
+    },
+    {
+      "id": 4,
+      "label": "forms",
+      "namespace": "plugins\\forms",
+      "installed": "1",
+      "path": "plugins\/forms",
+      "description": "Plugin voor het aanmaken van formulieren"
     }
   ],
   "templates": [
