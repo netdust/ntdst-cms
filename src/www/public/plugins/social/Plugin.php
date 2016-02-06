@@ -3,6 +3,7 @@
 namespace plugins\social;
 
 use Slim\Slim;
+use helpers\Location;
 use api\controller\PageController;
 
 
@@ -33,14 +34,14 @@ class Plugin extends \Slim\Middleware {
             return function () use ( $app, $plugin )
             {
 
-                $app->page->sitename    = $app->config('theme')->sitename;
+                $app->page->sitename    = $app->config('site')->sitename;
                 $app->page->image       = $plugin->search( $app->page->parent, 'image' );
                 $app->page->share       = $plugin->search( $app->page->parent, 'share' );
                 $app->page->seo_title   = $plugin->search( $app->page->parent, 'seo_title' );
-                $app->page->url         = $app->request()->getUrl() .$app->request()->getScriptName().'/'.$app->config('language').$app->request()->getResourceUri();
+                $app->page->url         = Location::full_url();
 
                 $page  = $app->page->get_array();
-                $page['image'] = $app->request->getUrl() . \helpers\Util::to(  $page['image'] );
+                $page['image'] = Location::uri(  $page['image'] );
 
                 $meta  = $plugin->facebook();
 

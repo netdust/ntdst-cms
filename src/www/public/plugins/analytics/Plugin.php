@@ -3,7 +3,7 @@
 namespace plugins\analytics;
 
 use Slim\Slim;
-use \controller\PageController;
+use helpers\Location;
 
 
 class Plugin extends \Slim\Middleware {
@@ -27,7 +27,7 @@ class Plugin extends \Slim\Middleware {
 
             return function () use ( $app, $plugin, $settings )
             {
-                echo $plugin->google( $settings->ga, \helpers\Util::host() );
+                echo $plugin->google( $settings->ga, Location::host() );
             };
         };
 

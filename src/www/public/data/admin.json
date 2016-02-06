@@ -1,5 +1,7 @@
 {
   "home": 1,
+  "charset": "utf-8",
+  "language_attr": "lang=\"fr\"",
   "theme": "default",
   "sitename": "Default site",
   "description": "This is a default website",
