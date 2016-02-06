@@ -55,14 +55,6 @@ define(function (require) {
             var _o = this.model.schema.value;
             _o.type = this.settings.get('field').charAt(0).toUpperCase() + this.settings.get('field').slice(1);
 
-            // check if it is a dynamic contenttype
-            var _ct = ntdst.api.modelFactory('contenttypes');
-            if( _ct.hasType( _o.type ) ){
-                // we'll need to set the first item of the contenttypes as main view
-                // _ct = _ct.getType( _o.type );
-                // _o.type = _ct.get('meta')[0].type;
-            }
-
             // help a little
             if( this.settings.get('field') == 'textarea' ) {
                 _o.type = 'TextArea';
