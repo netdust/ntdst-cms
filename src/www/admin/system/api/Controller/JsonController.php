@@ -61,11 +61,12 @@ class JsonController extends \api\Controller\Controller
 
     protected function save( ) {
         if( $this->key != '' ) {
-            $this->app->config('site')->{$this->key} = $this->data_array;
+            $this->app->config('site')->{$this->key} = (array) $this->data_array;
         }
         else {
             $this->app->config('site', $this->data_array );
         }
+
         file_put_contents(__ROOT__.$this->file, json_encode($this->app->config('site')));
         $this->render( 200, $this->data_array );
     }
