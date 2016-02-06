@@ -5,6 +5,7 @@
   "theme": "default",
   "sitename": "Default site",
   "description": "This is a default website",
+  "copyright":"&copy; 2016 Copyright . Powered by ntdst-cms | <a href=\"//netdust.be\" title=\"Netdust\">ntdst</a>",
   "languages": "fr:Fran\u00e7ais,nl:Nerderlands",
 
   "plugins": [
