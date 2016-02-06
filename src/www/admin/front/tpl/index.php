@@ -15,14 +15,14 @@
     <title></title>
 
     {% if production==false %}
-    <link rel="stylesheet" href="{{__to( '../bower_components/normalize.css/normalize.css' )}}" />
-    <link rel="stylesheet" href="{{__to( '../bower_components/foundation/css/foundation.css' )}}" />
-    <link rel="stylesheet" href="{{__to( '../bower_components/components-font-awesome/css/font-awesome.css' )}}" />
-    <link rel="stylesheet" href="{{__to( '../bower_components/dropzone/dist/dropzone.css' )}}" />
+    <link rel="stylesheet" href="{{_l__to( '../bower_components/normalize.css/normalize.css' )}}" />
+    <link rel="stylesheet" href="{{_l__to( '../bower_components/foundation/css/foundation.css' )}}" />
+    <link rel="stylesheet" href="{{_l__to( '../bower_components/components-font-awesome/css/font-awesome.css' )}}" />
+    <link rel="stylesheet" href="{{_l__to( '../bower_components/dropzone/dist/dropzone.css' )}}" />
     {% endif %}
 
-    <link rel="stylesheet" href="{{ __to( 'admin/front/css/build.css' )}}" />
-    <script data-main="{{__to( 'admin/front/js/admin' )}}" src="{{__to('admin/front/js/lib/require.js')}}"></script>
+    <link rel="stylesheet" href="{{_l__to( 'admin/front/css/build.css' )}}" />
+    <script data-main="{{_l__to( 'admin/front/js/admin' )}}" src="{{_l__to('admin/front/js/lib/require.js')}}"></script>
 
 </head>
 <body>
