@@ -31,65 +31,6 @@ class Util {
                 : strcmp($b->{$key}, $a->{$key});
         };
     }
-    public static function url() {
-        $app = \Slim\Slim::getInstance();
-        return  $app->request->getUrl();
-    }
-
-    public static function host() {
-        $app = \Slim\Slim::getInstance();
-        return  $app->request->getHost();
-    }
-
-    public static function root() {
-        $app = \Slim\Slim::getInstance();
-        return  $app->request->getRootUri();
-    }
-
-    public static function path() {
-        $app = \Slim\Slim::getInstance();
-        return  $app->request->getPath();
-    }
-
-    public static function asset($item) {
-        $app = \Slim\Slim::getInstance();
-        return  self::to( 'public/themes/' . $app->config('theme')->theme. '/' . $item );
-    }
-
-    public static function imagepath($item) {
-        return  self::_path('img',$item);
-    }
-
-    public static function csspath($item) {
-        return  self::_path('css',$item);
-    }
-
-    public static function jspath($item) {
-        return  self::_path('js',$item);
-    }
-
-    public static function assetpath($item) {
-        return  self::to( 'public/data/upload/' . $item );
-    }
-
-    protected  static function _path($asset, $item) {
-        $app = \Slim\Slim::getInstance();
-        return  self::to( 'public/themes/' . $app->config('theme')->theme. '/'.  $asset. '/' . $item );
-    }
-
-    public static function to($uri) {
-        if(strpos($uri, '://')) return $uri;
-        $app = \Slim\Slim::getInstance();
-        $base = $app->request()->getRootUri();
-        return $base. '/' . ltrim($uri, '/');
-    }
-
-    public static function uri($uri) {
-        if(strpos($uri, '://')) return $uri;
-        $app = \Slim\Slim::getInstance();
-        return $app->request()->getUrl(). '/' . self::to($uri);
-    }
-
 
 
     /**
