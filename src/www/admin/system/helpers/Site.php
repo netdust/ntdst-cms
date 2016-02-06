@@ -25,4 +25,17 @@ class Site
         return '';
     }
 
+    static function charset()
+    {
+        return '';
+    }
+
+    static function language_attr()
+    {
+        return '';
+    }
+
+
+
+
 }

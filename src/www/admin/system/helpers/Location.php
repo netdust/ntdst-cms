@@ -12,6 +12,11 @@ use \api\Controller\PageController;
 class Location
 {
 
+    public static function full_url() {
+        $app = \Slim\Slim::getInstance();
+        return $app->request()->getUrl().$app->request()->getScriptName().'/'.$app->config('language').$app->request()->getResourceUri();
+    }
+
     public static function url() {
         $app = \Slim\Slim::getInstance();
         return  $app->request->getUrl();
