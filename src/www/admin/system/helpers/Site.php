@@ -7,6 +7,7 @@
 namespace helpers;
 
 use \Slim\Slim;
+use \helpers\Location;
 use \api\Controller\ConfigController;
 
 class Site
@@ -15,15 +16,17 @@ class Site
     static function name()
     {
         global $app;
-        return '';
+        return $app->config('site')->name;
     }
     static function logo()
     {
-        return '';
+        global $app;
+        return Location::uri($app->config('site')->logo);
     }
     static function description()
     {
-        return '';
+        global $app;
+        return $app->config('site')->description;
     }
 
     static function charset()
@@ -34,7 +37,8 @@ class Site
 
     static function language_attr()
     {
-        return '';
+        global $app;
+        return $app->config('site')->language_attr;
     }
 
 

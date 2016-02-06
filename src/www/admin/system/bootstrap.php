@@ -82,7 +82,7 @@ try {
 try {
     $app->config($config);
     $themeconfigcontroller = new \api\Controller\ConfigController();
-    $themeconfig = (array) $app->config('theme');
+    $themeconfig = (array) $app->config('site');
 } catch (\PDOException $e) {
     $app->getLog()->error($e->getMessage());
 }
