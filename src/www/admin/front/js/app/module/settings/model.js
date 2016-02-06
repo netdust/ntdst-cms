@@ -15,6 +15,10 @@ define(function (require) {
                 languages:                  'Text',
                 home:                       'Text',
                 description:                'Text',
+                copyright:                  'Text',
+                charset:                    'Text',
+                language_attr:              'Text',
+                logo:                       'File',
                 sitename:                   { type: 'Text', message: 'Invalid sitename', validators: ['required'] },
                 theme:                      { type: 'Text', message: 'Invalid theme', validators: ['required'] }
             },
