@@ -66,6 +66,7 @@ class JsonController extends \api\Controller\Controller
         else {
             $this->app->config('site', $this->data_array );
         }
+
         file_put_contents(__ROOT__.$this->file, json_encode($this->app->config('site')));
         $this->render( 200, (array) json_decode($this->app->request()->getBody()) );
     }

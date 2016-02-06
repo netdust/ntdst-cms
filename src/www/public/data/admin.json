@@ -1,41 +1,23 @@
 {
+  "pushState": true,
+  "lang": 1,
+  "api": "\/NT-Sites\/source\/ntdst\/ntdst-cms\/src\/www\/api\/v1\/",
+  "root": "\/NT-Sites\/source\/ntdst\/ntdst-cms\/src\/www\/cms",
   "home": 1,
   "charset": "utf-8",
   "language_attr": "lang=\"fr\"",
   "theme": "default",
   "sitename": "Default site",
   "description": "This is a default website",
-  "copyright":"&copy; 2016 Copyright . Powered by ntdst-cms | <a href=\"//netdust.be\" title=\"Netdust\">ntdst</a>",
+  "copyright": "&copy; 2016 Copyright . Powered by ntdst-cms | <a href=\"\/\/netdust.be\" title=\"Netdust\">ntdst<\/a>",
   "languages": "fr:Fran\u00e7ais,nl:Nerderlands",
-
   "plugins": [
     {
-      "label": "forms",
-      "namespace": "plugins\\forms",
-      "installed": "1",
-      "description": "Adds form functionality using shortcodes",
-      "path": "plugins\/forms"
-    },
-    {
-      "label": "analytics",
-      "namespace": "plugins\\analytics",
-      "installed": "1",
-      "ga": "UA-xxxxxxx-xx",
-      "description": "Adds analytics each html-page",
-      "path": "plugins\/analytics"
-    },
-    {
-      "label": "canonical",
-      "namespace": "plugins\\canonical",
-      "installed": "1",
-      "path": "plugins\/canonical",
-      "description": "Adds canonical url to each page based on language and page slug"
-    },
-    {
+      "id": 1,
       "label": "social",
       "namespace": "plugins\\social",
       "installed": "1",
-      "id": "{{facebook_id}}",
+      "app_id": "123456789987",
       "title": "",
       "share": "",
       "image": "",
@@ -43,13 +25,16 @@
       "path": "plugins\/social"
     },
     {
-      "label": "youtube",
-      "namespace": "plugins\\youtube",
-      "installed": "0",
-      "description": "Injects youtube script into page",
-      "path": "plugins\/youtube"
+      "id": 2,
+      "label": "analytics",
+      "namespace": "plugins\\analytics",
+      "installed": "1",
+      "ga": "UA-123456789-98",
+      "description": "Adds analytics each html-page",
+      "path": "plugins\/analytics"
     },
     {
+      "id": 3,
       "label": "picturefill",
       "namespace": "plugins\\picturefill",
       "installed": "1",
@@ -58,7 +43,9 @@
       "jpeg_compression": "80",
       "folder": "public\/data\/uploads\/",
       "sizes": {
-        "small": {"width": 180},
+        "small": {
+          "width": 180
+        },
         "medium": {
           "width": 375,
           "query": "(min-width: 400px)"
@@ -116,7 +103,8 @@
           "key": "seo description",
           "tab": "SEO"
         }
-      ]
+      ],
+      "path": "templates\/base"
     },
     {
       "parent": "",
@@ -139,37 +127,17 @@
           "key": "error message",
           "tab": ""
         }
-      ]
+      ],
+      "path": "templates\/form"
     },
     {
       "parent": "base",
       "label": "home",
       "description": "template for the homepage of your site",
       "file": "home.html",
-      "meta": []
+      "meta": [],
+      "path": "templates\/home"
     }
   ],
-  "contenttypes": [
-    {
-      "label": "image",
-      "description": "an image contenttype with predefined resolutions",
-      "resolution-small": "300x300",
-      "resolution-big": "900x900",
-      "templates": "base",
-      "meta": [
-        {
-          "type": "File",
-          "key": "file"
-        },
-        {
-          "type": "Text",
-          "key": "title"
-        },
-        {
-          "type": "TextArea",
-          "key": "description"
-        }
-      ]
-    }
-  ]
+  "logo": "logo.jpg"
 }

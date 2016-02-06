@@ -32,6 +32,13 @@ define(function (require) {
                 this.on("invalid", function(model, error) {
                     console.log( error );
                 });
+            },
+
+            save: function(attrs, options) {
+                this.set('plugins', ntdst.api.modelFactory( 'plugins').toJSON());
+                this.set('templates', ntdst.api.modelFactory( 'templates').toJSON());
+                // Proxy the call to the original save function
+                Backbone.Model.prototype.save.call(this, attrs, options);
             }
 
         }),

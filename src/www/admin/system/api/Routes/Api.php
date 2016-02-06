@@ -88,7 +88,7 @@ $app->group(
                             call_user_func_array( array( $app->controller, $function ), array($id, $param) );
                         }
                         else {
-                            throw new Exception("Method does not exist, ". $app->controller);               // nothing we can do
+                            throw new Exception("Method does not exist, ". $model);                         // nothing we can do
                         }
                     });
 
