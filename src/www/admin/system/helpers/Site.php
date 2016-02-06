@@ -29,6 +29,12 @@ class Site
         return $app->config('site')->description;
     }
 
+    static function copyright()
+    {
+        global $app;
+        return $app->config('site')->copyright;
+    }
+
     static function charset()
     {
         global $app;
