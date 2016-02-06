@@ -11,18 +11,7 @@ namespace helpers;
 
 class Html {
 
-    private static function element($name, $content = '', $attributes = null) {
-        $short = array('img', 'input', 'br', 'hr', 'frame', 'area', 'base', 'basefont',
-            'col', 'isindex', 'link', 'meta', 'param');
 
-        if(in_array($name, $short)) {
-            if($content) $attributes['value'] = $content;
-
-            return '<' . $name . static::attributes($attributes) . '>';
-        }
-
-        return '<' . $name . static::attributes($attributes) . '>' . $content . '</' . $name . '>';
-    }
 
     private static function attributes($attributes) {
         if(empty($attributes)) return '';
@@ -35,6 +24,28 @@ class Html {
 
         return ' ' . implode(' ', $pairs);
     }
+
+    public static function element($name, $content = '', $attributes = null) {
+        $short = array('img', 'input', 'br', 'hr', 'frame', 'area', 'base', 'basefont',
+            'col', 'isindex', 'link', 'meta', 'param');
+
+        if(in_array($name, $short)) {
+            if($content) $attributes['value'] = $content;
+
+            return '<' . $name . static::attributes($attributes) . '>';
+        }
+
+        return '<' . $name . static::attributes($attributes) . '>' . $content . '</' . $name . '>';
+    }
+
+    public static function style( $style ) {
+        return static::element('link', '', array( 'rel'=>"stylesheet", 'href'=> $style ));
+    }
+
+    public static function script( $script ) {
+        return static::element('script', '', array( 'type'=>"text/javascript", 'src'=> $script ) );
+    }
+
 
     public static function input($title, $attributes = array()) {
         return static::element('input', $title, $attributes);

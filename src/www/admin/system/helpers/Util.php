@@ -34,6 +34,22 @@ class Util {
     }
 
 
+    /**
+     * shortcode
+     *
+     */
+
+    public static function register_shortcode( $name, $callback ) {
+        return \helpers\Shortcode::get()->register( $name, $callback );
+    }
+
+    public static function unregister_shortcode( $name, $callback ) {
+        return \helpers\Shortcode::get()->unregister( $name );
+    }
+
+    public static function parse_shortcode( $str ) {
+        return \helpers\Shortcode::get()->parse( $str );
+    }
 
     /**
      * Echoing json response to client
