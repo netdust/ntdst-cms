@@ -9,6 +9,8 @@ function script_tag( ) {
 ob_start(); ?>
 <script type="text/javascript">
         $(document).ready(function() {
+            $("input[type=checkbox], input[type=radio]").checkbox();
+            $("select").dropdown();
             $("nav").navigation();
         });
     </script>
@@ -23,6 +25,8 @@ function include_scripts( ) {
         echo Html::script( Location::to('../bower_components/formstone/src/js/mediaQuery.js') );
         echo Html::script( Location::to('../bower_components/formstone/src/js/swap.js') );
         echo Html::script( Location::to('../bower_components/formstone/src/js/navigation.js') );
+        echo Html::script( Location::to('../bower_components/formstone/src/js/checkbox.js') );
+        echo Html::script( Location::to('../bower_components/formstone/src/js/dropdown.js') );
     }
     else {
         echo Html::script( Location::js('build.min.js') );
@@ -32,8 +36,11 @@ function include_scripts( ) {
 function include_style( ) {
     global $app;
     if( $app->getMode() != 'production' ) {
-        echo Html::style( Location::to('../bower_components/basscss/src/basscss.css') );
+        echo Html::style( Location::to('http://d2v52k3cl9vedd.cloudfront.net/basscss/7.0.4/basscss.min.css') );
         echo Html::style( Location::to('../bower_components/formstone/dist/css/navigation.css') );
+        echo Html::style( Location::to('../bower_components/formstone/dist/css/checkbox.css') );
+        echo Html::style( Location::to('../bower_components/formstone/dist/css/dropdown.css') );
+        echo Html::style( Location::css('main.css') );
     }
     else {
         echo Html::style( Location::css('build.min.css') );

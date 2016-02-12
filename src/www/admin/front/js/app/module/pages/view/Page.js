@@ -67,8 +67,6 @@ define(function (require) {
         {
             this.translation = this.model.getTranslation();
 
-            console.log(  this.translation );
-
             if( !_.isUndefined( this.translation  ) )
             {
                 if(_.isUndefined(this.translation_view)) {
@@ -77,7 +75,6 @@ define(function (require) {
                     this.assign( {'.maincontent': this.translation_view } );
                 }
                 else {
-
                     this.translation_view.updateTranslation(
                         this.translation
                     )

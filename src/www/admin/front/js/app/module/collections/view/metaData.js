@@ -27,7 +27,6 @@ define(function (require) {
 
             ntdst.api.createLanguage( _meta );
 
-
             MetaView.prototype.initialize.apply(this, arguments);
         }
 

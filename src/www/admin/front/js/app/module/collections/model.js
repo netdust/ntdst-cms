@@ -22,8 +22,8 @@ define(function (require) {
             label       : "caption",
             template    : "default",
             parent      : "0",
-            sort        : "0"
-            //page_translation : [{ language_id:1, slug:"new-collection", description:"", content:"" }]
+            sort        : "0",
+            page_translation : [{ language_id:1, slug:"new-collection", description:"", content:"" }]
         },
 
         schema:  {
@@ -61,8 +61,8 @@ define(function (require) {
             label       : "caption",
             template    : "default",
             parent      : "0",
-            sort        : "0"
-            //page_translation : [{ language_id:1, slug:"new-media", description:"", content:"" }]
+            sort        : "0",
+            page_translation : [{ language_id:1, slug:"new-media", description:"", content:"" }]
         },
 
         schema:  {
@@ -85,6 +85,11 @@ define(function (require) {
             /* make sure these settings are correct */
             this.set( 'status', 'inherit');
             this.set( 'type', 'attachment');
+            this.on('sync', function() {
+                if( this.get('page_translation').length == 0 ) {
+                    this.get('page_translation').addTranslation(1);
+                }
+            });
         },
 
         validate: function (attrs) {

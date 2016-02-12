@@ -18,6 +18,10 @@ require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 // Config
 require_once dirname(__FILE__) . '/config.php';
+if (is_readable($path = __ROOT__ . 'config.php')) {
+    require $path;
+}
+
 
 // Debug
 require_once dirname(__FILE__) . '/debug.php';
@@ -102,7 +106,7 @@ $view->twigTemplateDirs = array(
     __ROOT__ .'public/themes/'.$themeconfig['theme'].DS
 );
 $view->parserOptions = array(
-    'debug' => HTML5_DEBUG,
+    'debug' => true,
     'cache' => __ROOT__.'public/data/cache'
 );
 
@@ -131,19 +135,6 @@ if( !$app->isAPI() ) {
 
         if (!$iscms) {
 
-            $templateData = (object)array(
-                'lang' => $app->config('language'),
-                'get' => $_GET,
-                'post' => $_POST,
-                'cookie' => $_COOKIE,
-                'session' => $_SESSION,
-                'production' => !HTML5_DEBUG
-            );
-
-            $app->applyHook('data', $templateData);
-            $app->view()->appendData((array)$templateData);
-
-
             $app->applyHook('before.page');
 
             $resource = ltrim($app->request()->getResourceUri(), '/');
@@ -156,6 +147,20 @@ if( !$app->isAPI() ) {
             $app->page = \api\Controller\PageController::slug($uri);
 
             $app->applyHook('after.page');
+
+            $templateData = (object)array(
+                'page_id' => $app->page->id,
+                'lang' => $app->config('language'),
+                'get' => $_GET,
+                'post' => $_POST,
+                'cookie' => $_COOKIE,
+                'session' => $_SESSION,
+                'production' => !HTML5_DEBUG
+            );
+
+            $app->applyHook('data', $templateData);
+            $app->view()->appendData((array)$templateData);
+
         }
     });
 

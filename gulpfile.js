@@ -83,6 +83,24 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "dist" ) );
 });
 
+/** POST CSS MTF*CKR **/
+gulp.task('postcss', function () {
+	var stream = gulp.src( cssminSrc[ env ] )
+		.pipe( $.concat( "build.css" ))
+		.pipe( $.autoprefixer( "last 2 version" ) )
+		.pipe( $.postcss([$.cssnext()]) );
+
+	if ( env === "production" ) {
+		stream = stream.pipe( require('gulp-replace')('../fonts/', 'fonts/') )
+			.pipe( require('gulp-minify-css')({ keepSpecialComments: 1, roundingPrecision: 3 }) );
+	}
+
+	return stream.on( "error", function( e ) {
+			console.error( e );
+		})
+		.pipe( gulp.dest( src + 'www/admin/front/css' ) );
+});
+
 /** CSS Preprocessors */
 gulp.task( "less", function () {
 	return gulp.src( src + "css/less/style.less" )

@@ -58,8 +58,6 @@ define(function (require) {
 
         media: function( )
         {
-            console.log( this.drop );
-
             if(  this.drop != null ) {
 
                 var root = ntdst.options.root.split('/');
@@ -80,10 +78,9 @@ define(function (require) {
                     //this.options.thumbnail.call(this, mockFile, ntdst.options.api +"image?src="+root+'/data/upload'+item.get('template'));
                 }, this.drop );
 
-                $('.dz-image-preview').on('click', function()
+                $('.dz-preview').on('click', function()
                 {
-                    ntdst.api.navigate( 'collection/'+ self.model.get('id') +'/'+ $(this).attr('data-dz-id') );
-
+                    ntdst.api.navigate( 'collection/'+ self.model.get('id') +'/'+ $(this).closest('.file').attr('data-dz-id') );
                 });
             }
 

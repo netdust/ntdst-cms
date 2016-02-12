@@ -65,31 +65,41 @@ define(function (require) {
             image: function( _collection, _id )
             {
                 var _collection = ntdst.api.modelFactory( 'collections' ).getPage({'id':_collection});
-                var _asset = _collection.getSub(_id);
 
-                var view = ntdst.api.viewFactory( 'image'+_id, Image, {model:_asset} );
-                ntdst.api.show( '#app', view );
+                if( _collection == null ) {
+                    ntdst.api.navigate('/collection');
+                    return;
+                }
+
+                var _asset = _collection.getSub(_id);
+                _asset.fetch({reset: true});
+
+                this.listenTo(_asset, 'sync', function()
+                {
+                    this.stopListening(_asset, 'sync');
+                    var view = ntdst.api.viewFactory( 'image'+_id, Image, {model:_asset} );
+                    ntdst.api.show( '#app', view );
+
+                });
             },
 
             create: function ( )
             {
 
-                var _m = new Model.collection( {date: new Date().getTime(), user:ntdst.options.user, type:'collection'} );
+                var _m = new Model.collection( {date: new Date().getTime(), user:ntdst.options.user, type:'collection', page_translation : [{ language_id:1, slug:"new-page", description:"", content:"" }]} );
                 var view = new Collection({model:_m});
 
                 this.listenTo(view, 'afterrender', function() {
-
                     this.stopListening(view, 'afterrender');
                     $('#main').removeClass('closed');
 
                     $('.assetsrow .assets').append(this.assettpl);
-
-                    view.drop = getDrop(_m, 0);
+                    view.setUploadComponent( getDrop( _m ) );
                 });
 
                 this.listenTo(_m, 'sync', function() {
                     this.stopListening(_m, 'sync');
-                    //ntdst.api.navigate('/collection');
+                    ntdst.api.navigate('/collection');
                 });
 
 

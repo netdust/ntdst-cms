@@ -12,7 +12,7 @@ define(function (require) {
     return Base.extend({
 
         afterRender: function() {
-            $('.assets').html('<img src="'+ base +'/data/upload/' + this.model.get('template') +'" />');
+            $('.assets').html('<img src="'+ base +'/' + this.model.get('template') +'" />');
             Base.prototype.afterRender.apply(this, arguments);
         },
 

@@ -1,6 +1,6 @@
 <?php
 
-/* @todo: update template ( the json file ) settings from here */
+/* @todo: add somekind of install, when plugin is init very first time, json must be updated */
 
 namespace plugins\forms;
 use Slim\Slim;
@@ -15,6 +15,8 @@ class Plugin extends \Slim\Middleware {
 
         $this->addShortCodes();
         $this->addRoutes();
+
+
     }
 
 

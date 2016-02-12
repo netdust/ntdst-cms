@@ -95,6 +95,7 @@ $app->group(
 
             $app->render( 'index.php', array(
                 "base"=> $app->config('base'),
+                'production' => !HTML5_DEBUG,
                 "settings"=>json_encode( (array) $args->settings ),
                 "modules"=> json_encode( (array) $args->modules )
             ));
