@@ -115,10 +115,6 @@ define(function (require) {
             this.templates = ntdst.api.modelFactory( 'templates' );
             this.tpl = this.templates.where({label:template_name})[0];
 
-            console.log( this.templates );
-            console.log( template_name );
-            console.log( this.tpl );
-
             if( this.tpl != undefined ) {
                 tabs = this.tpl.getTabs();
 

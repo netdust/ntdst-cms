@@ -22,14 +22,14 @@ define(function (require) {
             label       : "caption",
             template    : "default",
             parent      : "0",
-            sort        : "0",
-            page_translation : [{ language_id:1, slug:"new-collection", description:"", content:"" }]
+            sort        : "0"
+            //page_translation : [{ language_id:1, slug:"new-collection", description:"", content:"" }]
         },
 
         schema:  {
             type        : {type: 'Select', options: ['page', 'collection', 'attachement'] },
             status      : {type: 'Select', options: function(callback, editor) {
-                callback(  ntdst.api.hasPermission('publish_page') ? ['publish', 'private', 'draft'] : ['draft'] );
+                callback(  ntdst.api.hasPermission('publish_page') ? ['publish'] : ['draft'] );
             } },
             parent      : {type: 'Select', options: function(callback, editor) {
                 callback(  ntdst.api.modelFactory('collections').getOptionList() );
@@ -61,8 +61,8 @@ define(function (require) {
             label       : "caption",
             template    : "default",
             parent      : "0",
-            sort        : "0",
-            page_translation : [{ language_id:1, slug:"new-media", description:"", content:"" }]
+            sort        : "0"
+            //page_translation : [{ language_id:1, slug:"new-media", description:"", content:"" }]
         },
 
         schema:  {

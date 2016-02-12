@@ -15,8 +15,14 @@ define(function (require) {
 
         initialize:function ()
         {
-            this.listenTo( this.model, 'change:page', this.media );
+            //this.listenTo( this.model, 'change:page', this.media );
             return Base.prototype.initialize.apply(this, arguments);
+        },
+
+        setUploadComponent: function( d )
+        {
+            this.drop = d;
+            //this.media();
         },
 
         afterRender: function() {
@@ -52,29 +58,34 @@ define(function (require) {
 
         media: function( )
         {
-            var root = ntdst.options.root.split('/');
-            root.pop();
-            root = root.join('/');
+            console.log( this.drop );
 
-            var self = this;
+            if(  this.drop != null ) {
 
-            this.stopListening(this.model, 'change:page');
-            var assetsModel = this.model.get('page');
+                var root = ntdst.options.root.split('/');
+                root.pop();
+                root = root.join('/');
 
-            assetsModel.each( function(item){
-                var mockFile = { name: item.get('label'), size:0 };
-                this.options.addedfile.call(this, mockFile);
-                mockFile.previewElement.setAttribute('data-dz-id', item.get('id') );
-                mockFile.previewElement.setAttribute('id', 'preview_' + item.get('id') );
-                this.options.thumbnail.call(this, mockFile, root+'/'+item.get('template'));
-                //this.options.thumbnail.call(this, mockFile, ntdst.options.api +"image?src="+root+'/data/upload'+item.get('template'));
-            }, this.drop );
+                var self = this;
 
-            $('.dz-image-preview').on('click', function()
-            {
-                ntdst.api.navigate( 'collection/'+ self.model.get('id') +'/'+ $(this).attr('data-dz-id') );
+                this.stopListening(this.model, 'change:page');
+                var assetsModel = this.model.get('page');
 
-            });
+                assetsModel.each( function(item){
+                    var mockFile = { name: item.get('label'), size:0 };
+                    this.options.addedfile.call(this, mockFile);
+                    mockFile.previewElement.setAttribute('data-dz-id', item.get('id') );
+                    mockFile.previewElement.setAttribute('id', 'preview_' + item.get('id') );
+                    this.options.thumbnail.call(this, mockFile, root+'/'+item.get('template'));
+                    //this.options.thumbnail.call(this, mockFile, ntdst.options.api +"image?src="+root+'/data/upload'+item.get('template'));
+                }, this.drop );
+
+                $('.dz-image-preview').on('click', function()
+                {
+                    ntdst.api.navigate( 'collection/'+ self.model.get('id') +'/'+ $(this).attr('data-dz-id') );
+
+                });
+            }
 
         },
 
@@ -93,10 +104,13 @@ define(function (require) {
                     });
                 }
                 else {
+                    console.log( errors );
                     Backbone.trigger('notification', { message: 'Not all fields are filled in like they should, have a look', type: 'warning' });
                 }
             }
         },
+
+
 
         remove: function()
         {

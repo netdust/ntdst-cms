@@ -266,6 +266,7 @@ define(function (require) {
         createDropzone: function( el, options ) {
 
             el = document.querySelector(el);
+            console.log(el);
             if(el==null ) return null;
 
             if( el.dropzone ){

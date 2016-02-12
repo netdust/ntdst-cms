@@ -207,11 +207,14 @@ a.button.item.close { background: #f3f3f3; color: #666; border: 0; margin: 0; pa
 .list.imagegrid .list-content.media .pageinfo i.fa{ font-size: 50px; display: block;}
 .list.imagegrid .list-content.media .pageinfo div.label{ position: absolute; bottom: 20px; left: 0; }
 
-
 .placeholder:before, .square-box:before{ content: ""; display: block; padding-top: 100%;}
-.square-content{ position:  absolute; top: 0; left: 0; bottom: 0; right: 0; color: white;}
+.square-content{ position:  absolute; top: 0; width: 100%; height: 100%; text-align: center;}
 .square-content div { display: table; width: 100%; height: 100%;}
-.square-content span { display: table-cell; text-align: center; vertical-align: middle; color: white}
+.square-content span { display: inline-block;  }
+.square-content .dz-success-mark, .square-content .dz-error-mark { display: none; }
+.square-content .dz-filename { display: none; position: absolute; top:0; background: white; height: 25px; z-index: 99;}
+.square-content:hover .dz-filename { display: block; }
+.square-content .dz-details img { display: block; left: 50%; transform: translate(-50%, -50%); position: absolute; top: 50%; width: 100%; height: 100%;}
 
 /*=== NAVIGATION PANEL  */
 
