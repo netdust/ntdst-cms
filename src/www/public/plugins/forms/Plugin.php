@@ -16,7 +16,6 @@ class Plugin extends \Slim\Middleware {
         $this->addShortCodes();
         $this->addRoutes();
 
-
     }
 
 
@@ -72,6 +71,9 @@ class Plugin extends \Slim\Middleware {
 
         $app->put('/api/v1/form/:id', array(&$this, 'actionPutForm'))
             ->name('put_form');
+
+        $app->delete('/api/v1/form/:id', array(&$this, 'actionDeleteForm'))
+            ->name('delete_form');
     }
 
     protected function _actionGetForm( $id )
@@ -90,23 +92,50 @@ class Plugin extends \Slim\Middleware {
 
     public function actionGetForm( $id )
     {
-        $this->app->render( 200, $this->_actionGetForm( $id ) );
+        $controller = new \api\Controller\PageController;
+        $controller->get( $id, 'form' );
+
+        //$this->app->render( 200, $this->_actionGetForm( $id ) );
     }
 
     public function actionGetForms( )
     {
-        $query = \Model::factory('Page')->where('type', 'form');
-        $this->app->render( 200, $query->find_array() );
+        $controller = new \api\Controller\PageController;
+        $controller->get( 0, 'form' );
+
+        //$query = \Model::factory('Page')->where('type', 'form');
+        //$this->app->render( 200, $query->find_array() );
     }
 
     public function actionPostForm( $id )
     {
-        $this->app->render( 200, $this->_actionGetForm( $id ) );
+        $controller = new \api\Controller\PageController;
+        $controller->post( $id, null );
+        //$this->app->render( 200, $this->_actionGetForm( $id ) );
     }
 
     public function actionPutForm( $id )
     {
-        $this->app->render( 200, $this->_actionGetForm( $id ) );
+        $controller = new \api\Controller\PageController;
+        $controller->put( $id );
+        //$this->app->render( 200, $this->_actionGetForm( $id ) );
+    }
+
+    public function actionDeleteForm( $id )
+    {
+        $this->app->applyHook( 'page.delete', $id );
+        $r = self::getPage( $id );
+
+        // delete from DB, no restore
+        $metas = $r->metas()->find_many();
+        foreach( $metas as $meta ) {
+            $meta->translations()->delete_many();
+        }
+        $r->metas()->delete_many();
+        $r->delete();
+
+        $this->render( 200, array( 'success'=>$r ) );
+
     }
 
 

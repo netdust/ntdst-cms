@@ -33,6 +33,11 @@ define(function (require) {
                 var forms = ntdst.api.modelFactory( 'forms', Model.collection );
                 var form = forms.get({'id':id});
 
+                if( form == null ) {
+                    ntdst.api.navigate('/form');
+                    return;
+                }
+
                 form.fetch({'reset':true});
                 this.listenTo(form, 'sync', function()
                 {

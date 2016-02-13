@@ -11,11 +11,15 @@ define(function (require) {
     return BaseView.extend({
 
         events: {
+            "click #nav-back-btn": "goBack",
             "click #nav-open-btn": "toggleMeta"
         },
 
         template: tpl.meta,
 
+        goBack: function() {
+            window.history.back();
+        },
         toggleMeta: function() {
             $('#app').toggleClass('closed');
         },

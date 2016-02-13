@@ -92,6 +92,12 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Dosis', sans-serif; font-weight: 300;  co
 #main .meta .panel .columns{ padding-left: 0.9375em; padding-right: 0.9375em; }
 #main .meta .panel .row.collapse .columns{ padding:0; }
 
+#nav-back-btn {
+    color:white;
+    cursor: pointer;
+    margin-top:5px;
+}
+
  a.button.add-list {
     background: #f3f3f3;
     color: #666;
