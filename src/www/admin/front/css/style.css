@@ -218,7 +218,10 @@ a.button.item.close { background: #f3f3f3; color: #666; border: 0; margin: 0; pa
 .square-content div { display: table; width: 100%; height: 100%;}
 .square-content span { display: inline-block;  }
 .square-content .dz-success-mark, .square-content .dz-error-mark { display: none; }
-.square-content .dz-filename { display: none; position: absolute; top:0; background: white; height: 25px; z-index: 99;}
+.square-content .dz-filename { display: none; position: absolute; bottom:0; background: white; height: 25px; z-index: 99;}
+.square-content .select { display: block; position: absolute; top:0; height: 25px; z-index: 99; text-align: left; padding: 3px 0 0 10px; opacity: 0.2; color: #B9B9B9;}
+.square-content:hover .select { opacity: .7; color: #bfbfbf;}
+.square-content .select.selected { opacity: 1; color: #EEEEEE;}
 .square-content:hover .dz-filename { display: block; }
 .square-content .dz-details img { display: block; left: 50%; transform: translate(-50%, -50%); position: absolute; top: 50%; width: 100%; height: 100%;}
 

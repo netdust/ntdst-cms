@@ -147,5 +147,32 @@
       "path": "templates\/home"
     }
   ],
+  "roles" : {
+    "groupes": [
+      {
+        "administrators": {
+          "description": "this is a admin group",
+          "label": "Administrators",
+          "access": {
+            "cms": {
+              "login": true
+            },
+            "site": {
+              "paid": true
+            }
+          }
+        },
+        "registered": {
+          "description": "this is a group",
+          "label": "Registered Users",
+          "access": {
+            "site": {
+              "paid": true
+            }
+          }
+        }
+      }
+    ]
+  },
   "logo": "logo.jpg"
 }

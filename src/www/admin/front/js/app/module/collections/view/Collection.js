@@ -37,7 +37,7 @@ define(function (require) {
                 items: 'li',
                 opacity: .6,
                 placeholder: 'placeholder',
-                maxLevels:1,
+                maxLevels:0,
                 relocate: function(){
                     setTimeout(function(){
                         self.model.get('page').updateSort(
@@ -81,6 +81,12 @@ define(function (require) {
                 $('.dz-preview').on('click', function()
                 {
                     ntdst.api.navigate( 'collection/'+ self.model.get('id') +'/'+ $(this).closest('.file').attr('data-dz-id') );
+                });
+                $('.dz-details .select').on('click', function(e)
+                {
+                    console.log( this );
+                    $(this).toggleClass('selected');
+                    return false;
                 });
             }
 
