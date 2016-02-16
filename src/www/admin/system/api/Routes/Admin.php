@@ -82,9 +82,9 @@ $app->group(
             ), (array) $app->config('site') );
 
             $modules = array(
-                array( "id"=>1, "name"=>"Pages", "icon"=>"file-o", "path"=>"page" ),
-                array( "id"=>2, "name"=>"Collections", "icon"=>"picture-o", "path"=>"collection"),
-                array( "id"=>3, "name"=>"Assets", "icon"=>"image", "path"=>"asset"),
+                array( "id"=>1, "name"=>"Pages", "icon"=>"file", "path"=>"page" ),
+                array( "id"=>2, "name"=>"Collections", "icon"=>"image", "path"=>"collection"),
+                array( "id"=>3, "name"=>"Assets", "icon"=>"folder", "path"=>"asset"),
                 array( "id"=>4, "name"=>"Users", "icon"=>"users", "path"=>"user"),
                 array( "id"=>5, "name"=>"Settings", "icon"=>"cog", "path"=>"setting", "data"=> (array) $app->config('site') ),
                 array( "id"=>6, "name"=>"Help", "icon"=>"question", "path"=>"help")

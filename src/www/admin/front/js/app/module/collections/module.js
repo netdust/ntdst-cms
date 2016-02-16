@@ -9,7 +9,8 @@ define(function (require) {
         Model           = require("app/module/collections/model"),
         Collections     = require("app/module/collections/view/CollectionList"),
         Collection      = require("app/module/collections/view/Collection"),
-        Image           = require("app/module/collections/view/Image"),
+        //Image           = require("app/module/collections/view/Image"),
+        Image           = require("app/module/assets/view/Asset"),
 
 
         router = SubRoute.extend({

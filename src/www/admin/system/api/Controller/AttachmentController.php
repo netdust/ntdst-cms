@@ -4,6 +4,12 @@ namespace api\Controller;
 
 class AttachmentController extends \api\Controller\PageController
 {
+
+    protected function _get( $id, $type='page', $param=array()  ) // returns array
+    {
+        return parent::_get( $id, 'attachment', array('state'=>'inherit')  );
+    }
+
     public function delete( $id )
     {
         $this->app->applyHook( 'page.delete', $id );

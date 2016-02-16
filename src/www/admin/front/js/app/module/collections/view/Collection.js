@@ -84,7 +84,6 @@ define(function (require) {
                 });
                 $('.dz-details .select').on('click', function(e)
                 {
-                    console.log( this );
                     $(this).toggleClass('selected');
                     return false;
                 });

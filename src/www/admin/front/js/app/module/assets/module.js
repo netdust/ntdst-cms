@@ -32,7 +32,9 @@ define(function (require) {
                 var _m = ntdst.api.modelFactory( 'assets' ).getPage( id );
 
                 if( _m == null ) {
+                    //window.history.back();
                     ntdst.api.navigate('/asset');
+                    Backbone.trigger('notification', { message: 'The requested asset is not loaded yet or does not exist', type: 'error' });
                     return;
                 }
 
@@ -42,7 +44,6 @@ define(function (require) {
                 this.listenTo(_m, 'sync', function()
                 {
                     this.stopListening(_m, 'sync');
-
                     var view  = ntdst.api.viewFactory( 'asset'+id, Asset, {model:_m});
                     ntdst.api.show( '#app', view );
 

@@ -18,7 +18,7 @@ define(function (require) {
 
         renderMeta: function()
         {
-            this.addView( {'.meta': new ImageMetaData( { model:this.model } ) } );
+            //this.addView( {'.meta': new ImageMetaData( { model:this.model } ) } );
         },
 
         render: function()
