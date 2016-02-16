@@ -7,7 +7,7 @@ class CollectionController extends \api\Controller\PageController
 
     protected function _get( $id, $type='page', $param=array()  ) // returns array
     {
-        $arr = parent::_get( $id, $type );
+        $arr = parent::_get( $id, $type, $param  );
         if( $id ){ // if we aks for a page, add images too
             $arr['page']  = $this->_images( $id );
         }

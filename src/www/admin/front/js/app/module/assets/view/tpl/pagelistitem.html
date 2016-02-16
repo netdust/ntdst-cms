@@ -1,10 +1,13 @@
 
         <div class="list-content media">
-            <div class="pageinfo" data-src="<%= template %>">
+            <div class="pageinfo" data-id="<%= id %>" data-src="<%= template %>">
                 <i class="fa fa-file-<%= type %>"></i><div class="label"><%= label %></div>
             </div>
         </div>
 
+        <div class="list-select">
+            <i class="fa fa-check-square"></i>
+        </div>
         <div class="list-extra">
             <a href="#" data-dropdown="<%= hash( date ) %>" ><i class="fa fa-angle-down extranav" /></a>
         </div>

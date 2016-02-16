@@ -68,6 +68,13 @@ class PageController extends \api\Controller\Controller
      */
     protected function _get( $id, $type='page', $param=array() ) // returns array
     {
+
+        // set published or drafts as default, only return deleted items on specific request
+        if( count( $param ) == 0 ) {
+            $param = array('state'=>'publish,private,draft');
+        }
+
+
         if( !$id ) {
             $this->app->applyHook( $type.'.list', $id, $param );
             $query = \Model::factory('Page')->where('type', $type);
@@ -230,7 +237,6 @@ class PageController extends \api\Controller\Controller
             //todo: i am not a fan of this date folder, maybe use the page's label or page date instead?
 
             $arr = \services\Upload::send( $_FILES['file'], $folder, $options );
-
             $image= \Model::factory('Page')->where('template',$arr['file']);
             if( $image->count()==0 ) {
                 $this->_create(array(

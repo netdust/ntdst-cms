@@ -82,10 +82,9 @@ class Upload {
                 throw new \FileUploadException( "Filetype " .$file["type"]. " not accepted for upload" );
             }
 
-            if (strpos($file["type"], 'image') !== false) {
-                if (!self::validImage($file)) {
-                    throw new \FileUploadException( "Image not accepted for upload" );
-                }
+            if (strpos($file["type"], 'image') !== false && !self::validImage($file) )
+            {
+                throw new \FileUploadException( "Image not accepted for upload" );
             }
 
             // check if it a real upload

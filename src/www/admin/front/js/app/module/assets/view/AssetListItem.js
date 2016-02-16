@@ -39,12 +39,15 @@ define(function (require) {
             else type = type + '-o';
 
             this.model.set('type', type);
+
+            this.listenTo(this.model, 'destroy', this.remove );
         },
 
         render: function ()
         {
             this.$el.html(template(  _.extend( this.model.toJSON(), StringHelper ) ));
             this.$el.attr( 'id', 'menuItem_' + this.model.get('id') );
+            this.$el.attr( 'data-id', this.model.get('id') );
             this.$el.addClass( this.model.get('label') );
             this.$el.addClass( 'list-item' );
 
@@ -66,7 +69,6 @@ define(function (require) {
             this.model.destroy();
             this.remove();
         }
-
 
     });
 

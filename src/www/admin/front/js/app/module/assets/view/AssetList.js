@@ -9,54 +9,23 @@ define(function (require) {
         Base                = require('app/core/view/regions/content'),
 
         SortList            = require('sortablelist'),
+        Controlbar          = require('app/module/assets/view/AssetControlBar'),
         PageItemView        = require('app/module/assets/view/AssetListItem');
 
     return Base.extend({
 
         events : {
-            'click .button':'createItem'
+            'click .button':'createItem',
+            'click .list li .list-select': 'selectItem'
         },
 
-        data : {title:'Assets', label:'Create new Item'},
+        data : {title:'Assets', label:'Drop item to upload'},
 
         initialize: function() {
-            this.listenTo(this.model, 'reset', this.listRender);
+
+            this.addView({'.meta': new Controlbar({model:this.model})});
+            this.listenTo(this.model, 'reset', this.renderList);
         },
-
-        listRender: function ()
-        {
-
-            var self = this;
-            this.renderList();
-
-/*
-            var o = $('.list .sortable-list').nestedSortable({
-                forcePlaceholderSize: true,
-                handle: 'span',
-                helper:	'clone',
-                items: 'li',
-                opacity: .6,
-                placeholder: 'placeholder',
-                revert: 250,
-                tabSize: 25,
-                maxLevels: 4,
-                isTree: true,
-                expandOnHover: 700,
-                startCollapsed: false,
-                relocate: function(){
-                    setTimeout(function(){
-                        self.model.updateSort(
-                            o.nestedSortable('toHierarchy', {startDepthCount: 0})
-                        )
-                    }, 300);
-                }
-            });
-            */
-
-            $(document).foundation();
-            return this;
-        },
-
 
         renderList: function()
         {
@@ -64,6 +33,8 @@ define(function (require) {
             this.menu_render(
                 this.model, {'el':'.data ol.sortable-list', 'parent': 0 }
             );
+
+            $(document).foundation();
             return this;
         },
 
@@ -79,14 +50,6 @@ define(function (require) {
             {
                 var itm = self.getListItem( m );
                 container.appendChild(itm);
-
-                if( model.hasPages(m.get('id')) ) {
-                    self.menu_render(
-                        model, {
-                            'el':$(itm).append('<ol class="sortable-list"></ol>').find('ol.sortable-list'), 'parent': m.get('id')
-                        }
-                    );
-                }
             });
 
             $(p.el).append( container );
@@ -94,6 +57,17 @@ define(function (require) {
 
         getListItem: function( m ) {
             return new PageItemView( {model:m} ).render().el
+        },
+
+        selectItem: function(e) {
+            $(e.currentTarget).toggleClass('selected');
+
+            if( $('.list-select.selected').length>0) {
+                $('.controlbar').css('display', 'block');
+            }
+            else {
+                $('.controlbar').css('display', 'none');
+            }
         },
 
         createItem: function() {

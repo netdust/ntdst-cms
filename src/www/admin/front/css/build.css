@@ -298,6 +298,10 @@ i.extranav:before{ cursor: pointer; }
 .list li .list-handle{ cursor: pointer; }
 .list li .list-extra {right: 35px;}
 
+.list li .list-select { display: block; position: absolute; top:10px; height: 25px; z-index: 99; text-align: left; padding: 3px 0 0 10px; opacity: 0.2; color: #A4A4A4;}
+.list li .list-select:hover { opacity: .7; color: #a9a9a9;}
+.list li .list-select.selected { opacity: 1; color: #707070;}
+
 .list li .list-handle span,
 .list li .list-extra a .extranav { padding:5px 10px; margin:0; color:#dfdfdf; display: block; }
 
@@ -314,6 +318,10 @@ i.extranav:before{ cursor: pointer; }
 
 .assets .row.zonecontainer { margin-top: 25px; }
 .zone{background:white;height: 120px;padding-top: 45px}
+
+.controlbar { display: none; }
+.controlbar .wrapper{ background-color: #F0F1F3; padding:10px 0;}
+.controlbar .iconbutton { display: inline-block; position: relative; float: right; width:50px; text-align: center; cursor: pointer; }
 
 
 
