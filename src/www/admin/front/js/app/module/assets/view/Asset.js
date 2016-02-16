@@ -52,12 +52,12 @@ define(function (require) {
         renderMeta: function()
         {
 
-            //this.extend_view = new extraData( { model:this.model.get('page_meta') } );
-            //this.translation_view = new PageData( { model:this.model.getTranslation() } );
+            this.extend_view = new extraData( { model:this.model.get('page_meta') } );
+            this.translation_view = new PageData( { model:this.model.getTranslation() } );
 
             this.addView( {'.meta': new MetaData( { model:this.model } ) } );
-            //this.addView( {'.extrarow': this.extend_view } );
-            //this.addView( {'.maincontent': this.translation_view } );
+            this.addView( {'.extrarow': this.extend_view } );
+            this.addView( {'.maincontent': this.translation_view } );
         },
 
         renderTranslations: function() {
