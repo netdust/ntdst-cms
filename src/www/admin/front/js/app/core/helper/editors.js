@@ -191,6 +191,53 @@ define(function (require) {
     });
 
 
+    editors.Trumbo = editors.Base.extend({
+        tagName: 'textarea',
+
+        initialize: function(options) {
+            editors.Base.prototype.initialize.call(this, options);
+            var self = this;
+
+            this.model = options.model;
+
+            this.epic_id = 'trumbo_editor';
+            this.$el.attr('id', this.epic_id);
+
+            _.defer(function() {
+
+                self.editor = ntdst.api.createTrumbo(self.epic_id, options.schema, self.value)
+                    .on('tbwchange', function (e) {
+                        self.trigger('change', self);
+                    })
+                    .on('tbwpaste', function (e) {
+                        self.trigger('change', self);
+                    });
+            });
+        },
+
+        getValue: function() {
+            return $('#'+ this.epic_id).trumbowyg( 'html' );
+        },
+
+        setValue: function(value) {
+            $('#'+ this.epic_id).trumbowyg( 'html', value );
+        },
+
+        focus: function() {
+            if (this.hasFocus) return;
+            $('#'+ this.epic_id).trumbowyg('focus');
+        },
+
+        remove: function() {
+            if( this.editor != null ) {
+                //if( !this.editor.is('unloaded') )
+                    //this.editor.unload();
+                    $('#'+ this.epic_id).trumbowyg('destroy');
+                    this.editor = null;
+            }
+        }
+    });
+
     editors.Epic = editors.Base.extend({
         tagName: 'div',
 

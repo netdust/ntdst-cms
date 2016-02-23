@@ -25,7 +25,7 @@ define(function (require) {
             language_id: "Number",
             slug: "Text",
             description: {type:"Text", placeHolder:"Title", message: 'Invalid title', validators: ['required']},
-            content: {type:"Epic", placeHolder:"Pagina content, maak gebruik van markdown voor textformatting"}
+            content: {type:"Trumbo", placeHolder:"Pagina content, maak gebruik van markdown voor textformatting"}
         },
 
 

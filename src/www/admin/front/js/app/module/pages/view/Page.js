@@ -135,7 +135,7 @@ define(function (require) {
                                 self.extend_view.temp_collection.reset();
                                 self.extend_view.temp_collection = null;
                             }
-                            self.renderTranslations();
+                            //self.renderTranslations();
                         }
                     });
                 }

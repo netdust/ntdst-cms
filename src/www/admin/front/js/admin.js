@@ -43,10 +43,10 @@ require.config({
 
         'jquery'                    : "../bower_components/jquery/dist/jquery",
         'jquery-ui'                 : "../bower_components/jquery-ui/jquery-ui",
-        'jquery-ui/core'                    : "../bower_components/jquery-ui/ui/core",
-        'jquery-ui/mouse'                   : "../bower_components/jquery-ui/ui/mouse",
-        'jquery-ui/widget'                  : "../bower_components/jquery-ui/ui/widget",
-        'jquery-ui/sortable'                : "../bower_components/jquery-ui/ui/sortable",
+        'jquery-ui/core'            : "../bower_components/jquery-ui/ui/core",
+        'jquery-ui/mouse'           : "../bower_components/jquery-ui/ui/mouse",
+        'jquery-ui/widget'          : "../bower_components/jquery-ui/ui/widget",
+        'jquery-ui/sortable'        : "../bower_components/jquery-ui/ui/sortable",
 
 
         'backbone'                  : "../bower_components/backbone/backbone",
@@ -59,10 +59,13 @@ require.config({
         'foundation'                : '../bower_components/foundation/js/foundation',
         'dropzone'                  : '../bower_components/dropzone/dist/dropzone-amd-module',
         'epiceditor'                : '../bower_components/epiceditor/epiceditor/js/epiceditor',
+        'trumbowyg'                 : '../bower_components/trumbowyg/src/trumbowyg',
 
         'sortablelist'              : '../bower_components/nestedSortable/jquery.ui.nestedSortable',
         'listeditor'                : '../bower_components/backbone-forms/distribution.amd/editors/list',
         'spinner'                   : '../bower_components/spin.js/spin'
+
+
     },
 
     shim: {
@@ -92,6 +95,10 @@ require.config({
         },
 
         'dropzone': {
+            deps: ['jquery']
+        },
+
+        'trumbowyg': {
             deps: ['jquery']
         },
 

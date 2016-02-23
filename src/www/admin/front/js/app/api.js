@@ -16,6 +16,7 @@ define(function (require) {
         Router              = require('app/router'),
 
         Dropzone            = require('dropzone'),
+        trumbowyg           = require('trumbowyg'),
         markdown            = require('epiceditor'),
 
         MasterView          = require('app/core/view/regions/master'),
@@ -150,6 +151,23 @@ define(function (require) {
             view.addView( {'.language':  new _lg({model:ntdst.api.modelFactory('i18n')}) } );
         },
 
+        createTrumbo: function( name, options, value )
+        {
+            var def = {
+                btns: ['viewHTML',
+                    '|', 'formatting',
+                    '|', 'btnGrp-design',
+                    '|', 'link',
+                    /*'|', 'insertImage',*/
+                    /*'|', 'btnGrp-justify',*/
+                    '|', 'btnGrp-lists',
+                    '|', 'horizontalRule']
+            };
+
+            var tr =  $('#' + name ).trumbowyg(_.extend( def, options ));
+            $('#' + name ).trumbowyg('html', value );
+            return tr;
+        },
 
         createEpic: function( name, options  )
         {
