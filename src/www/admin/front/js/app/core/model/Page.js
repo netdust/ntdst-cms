@@ -108,12 +108,12 @@ define(function (require) {
         {
             if(_.isUndefined(status))
             {
-                if( this.get('status') == 'publish' ) {
+                if( this.get('status') == 'published' ) {
                     status = 'draft'
                 }
                 else
                 if( this.get('status') == 'draft' ) {
-                    status = 'publish'
+                    status = 'published'
                 }
             }
 

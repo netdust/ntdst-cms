@@ -71,7 +71,7 @@ class PageController extends \api\Controller\Controller
 
         // set published or drafts as default, only return deleted items on specific request
         if( count( $param ) == 0 ) {
-            $param = array('state'=>'publish,private,draft');
+            $param = array('state'=>'published,private,draft');
         }
 
 

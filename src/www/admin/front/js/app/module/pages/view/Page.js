@@ -166,7 +166,7 @@ define(function (require) {
             if( status == 'trash' ) {
                 this.$el.find('.pageoptions .option.remove').hide();
             }
-            if( status == 'publish' ) {
+            if( status == 'published' ) {
                 this.$el.find('.pageoptions .option.status').first().html('Unpublish');
             }
             else

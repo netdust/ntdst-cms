@@ -29,7 +29,7 @@ define(function (require) {
         schema:  {
             type        : {type: 'Select', options: ['page', 'collection', 'attachement'] },
             status      : {type: 'Select', options: function(callback, editor) {
-                callback(  ntdst.api.hasPermission('publish_page') ? ['publish'] : ['draft'] );
+                callback(  ntdst.api.hasPermission('publish_page') ? ['published'] : ['draft'] );
             } },
             parent      : {type: 'Select', options: function(callback, editor) {
                 callback(  ntdst.api.modelFactory('collections').getOptionList() );
@@ -68,7 +68,7 @@ define(function (require) {
         schema:  {
             type        : {type: 'Select', options: ['page', 'collection', 'attachement'] },
             status      : {type: 'Select', options: function(callback, editor) {
-                callback(  ntdst.api.hasPermission('publish_page') ? ['publish', 'private', 'draft'] : ['draft'] );
+                callback(  ntdst.api.hasPermission('publish_page') ? ['published', 'private', 'draft'] : ['draft'] );
             } },
             parent      : 'PageCollection',
             date        : "DatePicker",

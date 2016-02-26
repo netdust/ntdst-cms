@@ -77,7 +77,7 @@ define(function (require) {
         {
 
             var status = status || this.model.get('status');
-            if( status == 'publish' ) {
+            if( status == 'published' ) {
                 this.$el.find('.publish').first().html('Unpublish');
             }
             else

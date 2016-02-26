@@ -1,24 +1,44 @@
-<div class="row collapse" >
+<div>
+    <div class="row collapse">
 
-    <div class="small-3 columns">
-        <span class="prefix">
-            <div class="draghandler">
-                <span><i class="fa fa-bars" /></span>
-            </div>
-            <div data-editors="key"></div>
-        </span>
-    </div>
-    <div class="small-8 columns field" data-editors="value"></div>
-    <div class="small-1 columns">
-        <a href="#" data-dropdown="drop-<%= unique %>" class="coglink" ><i class="fa fa-cog"></i></a>
-    </div>
-    <ul id="drop-<%= unique %>" data-dropdown-content class="f-dropdown">
-        <li class="option text">Text</li>
-        <li class="option textarea">TextArea</li>
-        <li class="option date">Date</li>
-        <li class="option list">List</li>
-        <li class="option file">File</li>
-        <li class="option remove">- Remove</li>
-    </ul>
+        <div class="small-3 columns">
+            <span class="prefix">
+                <div class="draghandler">
+                    <span><i class="fa fa-bars"/></span>
+                </div>
+                <div data-editors="key"></div>
+            </span>
+        </div>
+        <div class="small-8 columns field" data-editors="value"></div>
+        <div class="small-1 columns">
+            <a href="#" data-dropdown="drop-<%= unique %>" class="coglink"><i class="fa fa-cog"></i></a>
+        </div>
+        <ul id="drop-<%= unique %>" data-dropdown-content class="f-dropdown">
+            <li class="option text">Text</li>
+            <li class="option textarea">TextArea</li>
+            <li class="option date">Date</li>
+            <li class="option list">List</li>
+            <li class="option file">File</li>
+            <li class="option remove">- Remove</li>
+        </ul>
 
+    </div>
+    <!--
+    <div class="row">
+        <div class="small-4 columns"><div class="row collapse">
+        <div class="small-4 columns"><span class="prefix c47_template">Type</span></div>
+        <div class="small-8 columns"><span data-editor=""><select id="c47_template" name="template">
+            <option>base</option>
+            <option>form</option>
+            <option>home</option>
+        </select></span></div>
+        </div></div>
+
+        <div class="small-8 columns"><div class="row collapse">
+        <div class="small-4 columns"><span class="prefix c47_template">options</span></div>
+        <div class="small-7 pull-1 columns"><span data-editor=""><input id="c400_value" name="value" type="text" placeholder="Text">
+        </span></div>
+        </div></div>
+    </div>
+    -->
 </div>

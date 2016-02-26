@@ -69,7 +69,8 @@ $app->configureMode('development', function () use ($app) {
     ));
 });
 
-// Init database
+// Init database MYSQL
+/*
 try {
     if (!empty($config['db']['username'])) {
         \Model::$auto_prefix_models = '\\'.$config['db']['prefix'].'\\';
@@ -81,6 +82,17 @@ try {
 } catch (\PDOException $e) {
     $app->getLog()->error($e->getMessage());
 }
+*/
+// Init database SQLITE
+try {
+    \Model::$auto_prefix_models = '\\'.$config['db']['prefix'].'\\';
+    ORM::configure('sqlite:./admin/db.sqlite');
+    ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+} catch (\PDOException $e) {
+    exit( $e->getMessage() );
+    $app->getLog()->error($e->getMessage());
+}
+
 
 // load configuration
 try {

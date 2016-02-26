@@ -30,7 +30,7 @@ define(function (require) {
         schema:  {
             type        : {type: 'Select', options: ['page', 'collection', 'attachement'] },
             status      : {type: 'Select', options: function(callback, editor) {
-                callback(  ntdst.api.hasPermission('publish_page') ? ['publish', 'private', 'draft', 'trash'] : ['draft'] );
+                callback(  ntdst.api.hasPermission('publish_page') ? ['published', 'private', 'draft', 'trash'] : ['draft'] );
             } },
             parent      : "PageCollection",
             date        : "DatePicker",
