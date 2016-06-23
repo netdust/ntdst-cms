@@ -15,9 +15,7 @@ class Plugin extends \Slim\Middleware {
 
         $this->addShortCodes();
         $this->addRoutes();
-
     }
-
 
     public function call()
     {
@@ -44,8 +42,6 @@ class Plugin extends \Slim\Middleware {
             };
         });
 
-
-
         $this->next->call();
     }
 
@@ -66,7 +62,7 @@ class Plugin extends \Slim\Middleware {
         $app->get('/api/v1/form/:id', array(&$this, 'actionGetForm'))
             ->name('get_forms');
 
-        $app->post('/api/v1/form/:id', array(&$this, 'actionPostForm'))
+        $app->post('/api/v1/form', array(&$this, 'actionPostForm'))
             ->name('post_form');
 
         $app->put('/api/v1/form/:id', array(&$this, 'actionPutForm'))
@@ -80,7 +76,7 @@ class Plugin extends \Slim\Middleware {
     {
         $form = \Model::factory('Page')->where('id', $id)->find_one();
         $arr = $form->as_array();
-        $arr['page_translation'] = $form->translations()->find_one()->as_array();
+        $arr['page_translation'] = $form->translation()->find_one()->as_array();
         $arr['page_meta'] = array_map( function( $meta ) {
             $meta_arr = $meta->as_array();
             $meta_arr['page_meta_translation'] = $meta->translations()->find_array();
@@ -94,31 +90,24 @@ class Plugin extends \Slim\Middleware {
     {
         $controller = new \api\Controller\PageController;
         $controller->get( $id, 'form' );
-
-        //$this->app->render( 200, $this->_actionGetForm( $id ) );
     }
 
     public function actionGetForms( )
     {
         $controller = new \api\Controller\PageController;
         $controller->get( 0, 'form' );
-
-        //$query = \Model::factory('Page')->where('type', 'form');
-        //$this->app->render( 200, $query->find_array() );
     }
 
-    public function actionPostForm( $id )
+    public function actionPostForm( )
     {
         $controller = new \api\Controller\PageController;
-        $controller->post( $id, null );
-        //$this->app->render( 200, $this->_actionGetForm( $id ) );
+        $controller->post( null, null );
     }
 
     public function actionPutForm( $id )
     {
         $controller = new \api\Controller\PageController;
         $controller->put( $id );
-        //$this->app->render( 200, $this->_actionGetForm( $id ) );
     }
 
     public function actionDeleteForm( $id )

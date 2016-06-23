@@ -13,6 +13,11 @@ define(function (require) {
 
         drop:null,
 
+        events : {
+            'click .dz-preview':'openImage',
+            'click .dz-details .select':'selectImage'
+        },
+
         initialize:function ()
         {
             //this.listenTo( this.model, 'change:page', this.media );
@@ -64,8 +69,6 @@ define(function (require) {
                 root.pop();
                 root = root.join('/');
 
-                var self = this;
-
                 this.stopListening(this.model, 'change:page');
                 var assetsModel = this.model.get('page');
 
@@ -75,20 +78,19 @@ define(function (require) {
                     mockFile.previewElement.setAttribute('data-dz-id', item.get('id') );
                     mockFile.previewElement.setAttribute('id', 'preview_' + item.get('id') );
                     this.options.thumbnail.call(this, mockFile, root+'/'+item.get('template'));
-                    //this.options.thumbnail.call(this, mockFile, ntdst.options.api +"image?src="+root+'/data/upload'+item.get('template'));
                 }, this.drop );
 
-                $('.dz-preview').on('click', function()
-                {
-                    ntdst.api.navigate( 'collection/'+ self.model.get('id') +'/'+ $(this).closest('.file').attr('data-dz-id') );
-                });
-                $('.dz-details .select').on('click', function(e)
-                {
-                    $(this).toggleClass('selected');
-                    return false;
-                });
             }
 
+        },
+
+        openImage: function(e) {
+            ntdst.api.navigate( 'collection/'+ this.model.get('id') +'/'+ $(e.target).closest('.file').attr('data-dz-id') );
+        },
+
+        selectImage: function(e) {
+            $(e.currentTarget).toggleClass('selected');
+            return false;
         },
 
         updatePage: function(e) {

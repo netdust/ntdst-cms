@@ -154,6 +154,7 @@ define(function (require) {
         createTrumbo: function( name, options, value )
         {
             var def = {
+                semantic: false,
                 btns: ['viewHTML',
                     '|', 'formatting',
                     '|', 'btnGrp-design',
@@ -207,75 +208,8 @@ define(function (require) {
 
                 }
             }).on ('load', function() {
-                //setUpUtilbar();
+
             });
-
-            var insertAtCaret, insertTags, setUpUtilbar;
-
-            setUpUtilbar = function() {
-
-                $('#epiceditor iframe').contents().find('#epiceditor-utilbar').append( '<button title="Toggle Header 1" class="epiceditor-toggle-btn header1">H1</button>' );
-                $('#epiceditor iframe').contents().find('#epiceditor-utilbar').append( '<button title="Toggle Header 2" class="epiceditor-toggle-btn header2">H2</button>' );
-                $('#epiceditor iframe').contents().find('#epiceditor-utilbar').append( '<button title="Toggle Strong" class="epiceditor-toggle-btn strong">Bold</button>' );
-
-                $('#epiceditor iframe').contents().find('.epiceditor-toggle-btn.strong').click( function() {
-                    var container;
-                    container = $("#epiceditor iframe").contents().find("iframe#epiceditor-editor-frame").contents().find("body").get(0);
-                    return insertTags(container, '**');
-                });
-
-                $('#epiceditor iframe').contents().find('.epiceditor-toggle-btn.header1').click( function() {
-                    var container;
-                    container = $("#epiceditor iframe").contents().find("iframe#epiceditor-editor-frame").contents().find("body").get(0);
-                    return insertAtCaret(container, '#');
-                });
-
-                $('#epiceditor iframe').contents().find('.epiceditor-toggle-btn.header2').click( function() {
-                    var container;
-                    container = $("#epiceditor iframe").contents().find("iframe#epiceditor-editor-frame").contents().find("body").get(0);
-                    return insertAtCaret(container, '##');
-                });
-
-
-            };
-
-
-            insertTags = function(element, tags) {
-                var frag, text, node, nodeToInsert, range, selection, _window;
-                _window = element.ownerDocument.defaultView;
-
-                selection = (document.all) ? document.selection.createRange().text : _window.getSelection();
-                if (selection.rangeCount) {
-                    range = selection.getRangeAt(0);
-                    text = selection.toString();
-                    range.deleteContents();
-                    node = document.createTextNode(tags+text+tags);
-                    frag = document.createDocumentFragment();
-                    nodeToInsert = frag.appendChild(node);
-                    return range.insertNode(frag);
-                } else {
-                    text = selection.toString();
-                    return $(element).append(tags+text+tags);
-                }
-            };
-
-
-            insertAtCaret = function(element, text) {
-                var frag, node, nodeToInsert, range, selection, _window;
-                _window = element.ownerDocument.defaultView;
-
-                selection = (document.all) ? document.selection.createRange().text : _window.getSelection();
-                if (selection.rangeCount) {
-                    range = selection.getRangeAt(0);
-                    //range.deleteContents();
-                    node = document.createTextNode(text);
-                    frag = document.createDocumentFragment();
-                    nodeToInsert = frag.appendChild(node);
-                    return range.insertNode(frag);
-                } else {
-                    return $(element).append(text);
-                }
-            };
 
 
             return myEpic;

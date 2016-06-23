@@ -51,7 +51,7 @@ define(function (require) {
 
             create: function ( )
             {
-                var _m = new Model.page( {date: new Date().getTime(), user:ntdst.options.user, type:"page", page_translation : [{ language_id:1, slug:"new-page", description:"", content:"" }]} );
+                var _m = new Model.page( {created: new Date().getTime(), user:ntdst.options.user, type:"page", page_translation : [{ language_id:1, slug:"new-page", description:"", content:"" }]} );
                 var view = new Page({model:_m});
 
 

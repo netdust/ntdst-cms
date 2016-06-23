@@ -34,7 +34,7 @@
         base='{{base}}';
         define('app-bootstrap', function(){
             return {
-                settings:{{settings|raw};},
+                settings:{{settings|raw};;},
                 {
                     {
                         modules | raw

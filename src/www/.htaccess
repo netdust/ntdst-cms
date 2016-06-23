@@ -10,6 +10,13 @@ Options +FollowSymLinks
 # Enables mod_rewrite
 RewriteEngine on
 
+# Deny all database files from being served
+
+<Files ~ "\.db$">
+    Order allow,deny
+    Deny from all
+</Files>
+
 
 RewriteCond  %{REQUEST_FILENAME}    !-f
 RewriteCond  %{REQUEST_FILENAME}    !-d

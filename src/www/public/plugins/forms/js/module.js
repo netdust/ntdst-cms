@@ -13,6 +13,7 @@ define(function (require) {
 
             routes: {
                 "" : "list",
+                "create" : "create",
                 ":id" : "form"
             },
 
@@ -45,6 +46,25 @@ define(function (require) {
                     var view  = ntdst.api.viewFactory( 'form'+id, View.form, {model:form});
                     ntdst.api.show( '#app', view );
                 });
+
+            },
+
+            create: function ( )
+            {
+                var _m = new Model.model( {created: new Date().getTime(), user:ntdst.options.user, type:"form", template:"base", page_translation : [{ language_id:1, slug:"new-form", description:"", content:"" }]} );
+                var view = new View.form({model:_m});
+
+                this.listenTo(view, 'afterrender', function() {
+                    this.stopListening(view, 'afterrender');
+                    $('#app').removeClass('closed');
+                });
+
+                this.listenTo(_m, 'sync', function() {
+                    this.stopListening(_m, 'sync');
+                    ntdst.api.navigate('/form');
+                });
+
+                ntdst.api.show( '#app', view );
 
             }
 

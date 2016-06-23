@@ -25,7 +25,7 @@ class PageController extends \api\Controller\Controller
         foreach( $r as $translation )
         {
 
-            $page = $translation->page()->find_one();
+            $page = $translation->page()->where_not_equal('status', 'trash')->find_one();
 
             if( $page && ( ($type!=null && $page->type == $type ) || $type==null ) ) {
 
@@ -156,7 +156,8 @@ class PageController extends \api\Controller\Controller
             $r = self::getPage($item->id);
             if( $r ) {
                 $r->sort = $item->sort;
-                $r->set_expr('modified', 'NOW()');
+                //$r->set_expr('modified', 'date(\'now\')');
+                $r->modified = date('Y-m-d H:i:s', time());
                 $r->parent = is_object($item->parent) ? $item->parent->id : $item->parent;
                 $r->save();
             }
@@ -189,7 +190,8 @@ class PageController extends \api\Controller\Controller
         $r = self::getPage( $id );
         if( $r ) {
             $r->status = $param['status'];
-            $r->set_expr('modified', 'NOW()');
+            //$r->set_expr('modified', 'date(\'now\')');
+            $r->modified = date('Y-m-d H:i:s', time());
             $r->save();
         }
         $this->get( $id );
@@ -266,14 +268,16 @@ class PageController extends \api\Controller\Controller
 
         if( $isnew ) {
             $r = \Model::factory('Page')->create();
-            $r->set_expr('date', 'NOW()');
-            unset($data['date']);
+            //$r->set_expr('date', 'date(\'now\')');
+            //unset($data['date']);
+            $r->created = date('Y-m-d H:i:s', time());
         }
         else {
             $r = \Model::factory('Page')->find_one($data['id']);
         }
 
-        $r->set_expr('modified', 'NOW()');
+        //$r->set_expr('modified', 'date(\'now\')');
+        $r->modified = date('Y-m-d H:i:s', time());
 
         foreach( $data as $key => $value )  {
             if( !is_array( $value ) ) { // probably a relatedmodel

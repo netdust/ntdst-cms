@@ -13,12 +13,19 @@ html { background:#e1e1e1; padding:0; background-size: cover; }
 body { font-family: 'Dosis', sans-serif; font-weight: 300; color: #3A4049; width: 100%; background: transparent;  }
 h1, h2, h3, h4, h5, h6 { font-family: 'Dosis', sans-serif; font-weight: 300;  color: #3A4049; }
 
-:-moz-placeholder, ::-moz-placeholder {
-    color:    #c4c4c6 !important;
-    opacity:  1;
+:-moz-placeholder {
+    color: #cecece !important;
 }
-::-webkit-input-placeholder, :-ms-input-placeholder {
-    color: #c4c4c6 !important;
+
+::-moz-placeholder {
+    color:    #cecece !important;
+}
+::-webkit-input-placeholder {
+    color: #cecece !important;
+}
+
+:-ms-input-placeholder {
+    color: #cecece !important;
 }
 
 .f-dropdown{ padding:5px; }
@@ -195,7 +202,7 @@ a.button.item.close { background: #f3f3f3; color: #666; border: 0; margin: 0; pa
 .editor.uploadzone .dz-progress-spinner { background: url(../img/loader.gif) no-repeat; position: absolute; top: 7px; right: 8px; display: none; width: 24px; height: 24px;}
 .editor.uploadzone .dz-processing .dz-progress-spinner {  display: block; }
 .editor.uploadzone .dz-processing.dz-error .dz-progress-spinner,
-.editor.uploadzone .dz-processing.dz-success .dz-progress-spinner { display: none; }
+.editor.uploadzone .dz-processing.dz-success .dz-progress-spinner { display: block; }
 
 
 /*== EPICEDITOR         */
@@ -229,7 +236,9 @@ a.button.item.close { background: #f3f3f3; color: #666; border: 0; margin: 0; pa
 .square-content:hover .select { opacity: .7; color: #bfbfbf;}
 .square-content .select.selected { opacity: 1; color: #EEEEEE;}
 .square-content:hover .dz-filename { display: block; }
-.square-content .dz-details img { display: block; left: 50%; transform: translate(-50%, -50%); position: absolute; top: 50%; width: 100%; height: 100%;}
+.square-content .dz-progress { display: block; left: 50%; transform: translate(-50%, -50%); position: absolute; top: 50%; height: 100%; width: 100%;}
+.square-content .dz-progress .dz-upload{ display: block; }
+.square-content .dz-details img { display: block; left: 50%; transform: translate(-50%, -50%); position: absolute; top: 50%; height: 100%; max-width: none;}
 
 /*=== NAVIGATION PANEL  */
 

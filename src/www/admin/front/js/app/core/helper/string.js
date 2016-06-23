@@ -30,8 +30,8 @@ define(function (require) {
             str = str.replace(/[\u00D9-\u00DC]/ig,'u');
             str = str.replace(/[\u00D1]/ig,'n');
 
-            str = str.trim().replace(/[^a-z0-9]/gi, '-').
-                replace(/_+/g, '-')
+            str = str.trim().replace(/[^_a-z0-9]/gi, '-')
+                //.replace(/_+/g, '-')
                 .replace(/-+/g, '-')
                 .replace(/^-+/g, '')
                 .replace(/-+$/g, '');

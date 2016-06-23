@@ -8,6 +8,8 @@ define(function (require) {
     var $                   = require('jquery'),
         _                   = require('underscore'),
 
+        StringHelper        = require('app/core/helper/string'),
+
         PageExtends         = require('app/core/model/PageExtendCollection'),
 
         SortList            = require('sortablelist'),
@@ -121,14 +123,13 @@ define(function (require) {
                 _.each( tabs, function(item) {
                     tabshtml.find('dl.tabs').append('<dd><a href="#panel_'+item+'">'+item+'</a></dd>');
                     tabshtml.find('div.tabs-content').append('<div class="content" id="panel_'+item+'"><div class="panel"><ol class="container"></ol></div></div>');
-                } );
-
+                });
 
                 this.fields = this.tpl.getFields();
                 _.each( this.fields, function(item) {
                     if( !self.model.hasItemWithKey( item['key'] )  ) {
                         self.temp_collection.addItem(
-                            {field:item['type'], key:item['key'], page_meta_translation:[{ key:item['key'], language_id:1 }] }
+                            {field:item['type'], key:item['key'], page_meta_translation:[{ key:item['key'].replace(/_+/g, ' '), language_id:1 }] }
                         );
                     }
                 } );

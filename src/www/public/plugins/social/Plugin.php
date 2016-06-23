@@ -34,14 +34,14 @@ class Plugin extends \Slim\Middleware {
             return function () use ( $app, $plugin )
             {
 
-                $app->page->sitename    = $app->config('site')->sitename;
-                $app->page->image       = $plugin->search( $app->page->parent, 'image' );
-                $app->page->share       = $plugin->search( $app->page->parent, 'share' );
-                $app->page->seo_title   = $plugin->search( $app->page->parent, 'seo_title' );
-                $app->page->url         = Location::full_url();
+                $app->page->sitename        = $app->config('site')->sitename;
+                $app->page->og_image        = $plugin->search( $app->page->parent, 'og_image' );
+                $app->page->og_description  = $plugin->search( $app->page->parent, 'og_description' );
+                $app->page->og_title        = $plugin->search( $app->page->parent, 'og_title' );
+                $app->page->url             = Location::full_url();
 
                 $page  = $app->page->get_array();
-                $page['image'] = Location::uri(  $page['image'] );
+                $page['og_image'] = Location::uri(  $page['og_image'] );
 
                 $meta  = $plugin->facebook();
 
@@ -105,11 +105,11 @@ class Plugin extends \Slim\Middleware {
         ob_start(); ?>
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="{{seo_title}}" />
+    <meta property="og:title" content="{{og_title}}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{url}}" />
-    <meta property="og:image" content="{{image}}" />
-    <meta property="og:description" content="{{share}}" />
+    <meta property="og:image" content="{{og_image}}" />
+    <meta property="og:description" content="{{og_description}}" />
     <meta property="og:site_name" content="{{sitename}}" />
 
         <?php return ob_get_clean();
@@ -125,8 +125,7 @@ class Plugin extends \Slim\Middleware {
             else return $this->search( $share['parent'], $meta );
         }
         else {
-
-            return !isset( $this->settings->meta ) ? 'no value' : $this->settings->meta;
+            return !isset( $this->settings->{$meta} ) ? 'no value' : $this->settings->{$meta};
         }
 
     }

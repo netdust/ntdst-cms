@@ -127,7 +127,7 @@ class Page
 
     static function isHome( ) {
         $Slim = Slim::getInstance();
-        return $Slim->page->slug == $Slim->config('homepage');
+        return $Slim->page->slug == $Slim->config('home');
     }
 
     static function isDraft() {
@@ -143,7 +143,7 @@ class Page
     }
 
     public static function body_class() {
-        return self::type().( self::isHome()?' home':' ').self::slug();
+        return self::type().( self::isHome()?' home ':' ').self::label();
     }
 
     private static function _findPage( $id ) {

@@ -28,8 +28,8 @@ class Util {
     protected  static function build_sorter($key, $order) {
         return function ($a, $b) use ($key, $order) {
             return $order=='ASC'
-                ? strcmp($a->{$key}, $b->{$key})
-                : strcmp($b->{$key}, $a->{$key});
+                ? strnatcmp($a->{$key}, $b->{$key})
+                : strnatcmp($b->{$key}, $a->{$key});
         };
     }
 

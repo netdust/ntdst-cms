@@ -33,7 +33,7 @@ define(function (require) {
                 callback(  ntdst.api.hasPermission('publish_page') ? ['published', 'private', 'draft', 'trash'] : ['draft'] );
             } },
             parent      : "PageCollection",
-            date        : "DatePicker",
+            created     : "Text",
             user        : "Text",
             modified    : "Text",
             label       : {type:"Text", placeHolder:"Label", message: 'Invalid label', validators: ['required'] },

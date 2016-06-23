@@ -53,11 +53,19 @@ class I18n extends \Slim\Middleware {
      *
      * @param   array   $languages Language IDs and names
      */
-    function __construct($languages = null, $redirect=false) {
-        $this->redirect = $redirect;
+    function __construct( $languages, $options = array() ) {
+
+        $this->options = array_merge(array(
+            'defaultLanguage' => 0,
+            'redirect' => false,
+            'browser' => true
+        ),$options);
+
         $this->languages = $languages;
         $strict_var = array_keys($languages);
-        $this->defaultLanguage = reset($strict_var);
+
+        $this->redirect = $this->options["redirect"];
+        $this->defaultLanguage = $strict_var[$this->options["defaultLanguage"]];
     }
 
     /**
@@ -78,7 +86,6 @@ class I18n extends \Slim\Middleware {
         $app = $this->app;
         $request = $app->request();
 
-        $oldLanguage = $this->getUserLanguage();
         $language    = $this->setUserLanguage($request->get('lang'));
 
         $redirectTo = '/';
@@ -116,7 +123,7 @@ class I18n extends \Slim\Middleware {
         {
             $language = $_SESSION['language'];
 
-        } else if ($accept_languages = $this->app->request()->headers('ACCEPT_LANGUAGE'))   // get from browser
+        } else if ($this->options["browser"] && ($accept_languages = $this->app->request()->headers('ACCEPT_LANGUAGE')) )   // get from browser
         {
             foreach (explode(',', $accept_languages) as $language_identifier) {
                 $strict_var = explode(';', trim($language_identifier));
@@ -255,9 +262,10 @@ class I18n extends \Slim\Middleware {
 
             $realPath = $this->stripLanguage($resourceUri, $userLanguage);
 
+
             $environment = $app->environment();
             $environment->offsetSet('PATH_INFO', '/'.ltrim($realPath,'/'));
-            //$environment->offsetSet('SCRIPT_NAME', $environment->offsetGet('SCRIPT_NAME') . "/$userLanguage");
+
 
             $this->addRoutes();
             $this->next->call();

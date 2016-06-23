@@ -3,6 +3,11 @@
  * Common configuration
  */
 
+$config['app']['debug']=true;
+
+$config['app']['log.enable'] = true;
+$config['app']['log.level'] = \Slim\Log::DEBUG;
+
 // Init application mode
 $config['app']['mode'] = get_mode(
     array('localhost', '127.0.0.1')

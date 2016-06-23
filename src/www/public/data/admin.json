@@ -1,8 +1,6 @@
 {
   "pushState": true,
   "lang": 1,
-  "api": "\/NT-Sites\/source\/ntdst\/ntdst-cms\/src\/www\/api\/v1\/",
-  "root": "\/NT-Sites\/source\/ntdst\/ntdst-cms\/src\/www\/cms",
   "home": 1,
   "charset": "utf-8",
   "language_attr": "lang=\"fr\"",
@@ -10,7 +8,7 @@
   "sitename": "Default site",
   "description": "This is a default website",
   "copyright": "&copy; 2016 Copyright . Powered by ntdst-cms | <a href=\"\/\/netdust.be\" title=\"Netdust\">ntdst<\/a>",
-  "languages": "fr:Fran\u00e7ais,nl:Nerderlands",
+  "languages": "fr:Fran\u00e7ais,nl:Nederlands",
   "plugins": [
     {
       "id": 1,
@@ -18,9 +16,7 @@
       "namespace": "plugins\\social",
       "installed": "1",
       "app_id": "123456789987",
-      "title": "",
-      "share": "",
-      "image": "",
+      "translation_id": "",
       "description": "Adds Facebook graph data to each html-page",
       "path": "plugins\/social"
     },
@@ -78,17 +74,17 @@
       "meta": [
         {
           "type": "Text",
-          "key": "og title",
+          "key": "og_title",
           "tab": "social"
         },
         {
           "type": "TextArea",
-          "key": "og description",
+          "key": "og_description",
           "tab": "social"
         },
         {
           "type": "File",
-          "key": "og image",
+          "key": "og_image",
           "tab": "social"
         },
         {
@@ -103,12 +99,12 @@
         },
         {
           "type": "Text",
-          "key": "seo title",
+          "key": "seo_title",
           "tab": "SEO"
         },
         {
           "type": "TextArea",
-          "key": "seo description",
+          "key": "seo_description",
           "tab": "SEO"
         }
       ],

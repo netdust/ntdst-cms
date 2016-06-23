@@ -68,7 +68,7 @@ define(function (require) {
         },
 
         addForm: function() {
-            this.trigger( 'create', 'user' );
+            ntdst.api.navigate( 'form/create' );
         }
     });
 

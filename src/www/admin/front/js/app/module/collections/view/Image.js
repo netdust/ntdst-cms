@@ -12,13 +12,13 @@ define(function (require) {
     return Base.extend({
 
         afterRender: function() {
-            $('.assets').html('<img src="'+ base +'/' + this.model.get('template') +'" />');
+            $('.assets .previewsContainer').html('<img src="'+ base +'/' + this.model.get('template') +'" />');
             Base.prototype.afterRender.apply(this, arguments);
         },
 
-        renderMeta: function()
+        setUploadComponent: function( d )
         {
-            //this.addView( {'.meta': new ImageMetaData( { model:this.model } ) } );
+            this.drop = d;
         },
 
         render: function()

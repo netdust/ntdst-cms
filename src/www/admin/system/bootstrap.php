@@ -5,7 +5,6 @@ define('ENV', getenv('APP_ENV'));
 define('VERSION', 'v1');
 define('EXT', '.php');
 
-//define('__ROOT__', dirname( dirname(__FILE__) ) . DS );
 
 define('__ROOT__', '.' . DS  );
 define('__ADMIN__', dirname( dirname( __FILE__ ) ) . DS. 'front' . DS  );
@@ -16,15 +15,16 @@ define('__ADMIN__', dirname( dirname( __FILE__ ) ) . DS. 'front' . DS  );
 // Autoloader
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 
+
 // Config
+$config=[];
 require_once dirname(__FILE__) . '/config.php';
-if (is_readable($path = __ROOT__ . 'config.php')) {
+if (is_readable($path = __ROOT__ . 'public/data/conf/config.php')) {
     require $path;
 }
-
-
-// Debug
-require_once dirname(__FILE__) . '/debug.php';
+if (is_readable($path = __ROOT__ . 'public/data/conf/env.'.$config['app']['mode'].'.php')) {
+    require $path;
+}
 
 
 // Models
@@ -43,8 +43,6 @@ $app = new \api\App($config['app']);
 $app->configureMode('api', function () use ($app) {
     $app->config(array(
         'view'=> new api\View\JsonApiView(),
-        'log.enable' => true,
-        'log.level' => \Slim\Log::DEBUG,
         'debug' => false
     ));
 });
@@ -53,7 +51,6 @@ $app->configureMode('api', function () use ($app) {
 $app->configureMode('production', function () use ($app) {
     $app->config(array(
         'base'=> $app->request->getScriptName(),
-        'log.enable' => true,
         'log.level' => \Slim\Log::WARN,
         'debug' => false
     ));
@@ -62,10 +59,7 @@ $app->configureMode('production', function () use ($app) {
 // Only invoked if mode is "development"
 $app->configureMode('development', function () use ($app) {
     $app->config(array(
-        'base'=> dirname($app->request->getScriptName()).'/www',
-        'log.enable' => true,
-        'log.level' => \Slim\Log::DEBUG,
-        'debug' => true
+        'base'=> dirname($app->request->getScriptName()).'/www'
     ));
 });
 
@@ -86,7 +80,7 @@ try {
 // Init database SQLITE
 try {
     \Model::$auto_prefix_models = '\\'.$config['db']['prefix'].'\\';
-    ORM::configure('sqlite:./admin/db.sqlite');
+    ORM::configure('sqlite:./public/data/cms.db');
     ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 } catch (\PDOException $e) {
     exit( $e->getMessage() );
@@ -118,7 +112,7 @@ $view->twigTemplateDirs = array(
     __ROOT__ .'public/themes/'.$themeconfig['theme'].DS
 );
 $view->parserOptions = array(
-    'debug' => true,
+    'debug' => $app->config('debug'),
     'cache' => __ROOT__.'public/data/cache'
 );
 
@@ -131,7 +125,6 @@ if( !$app->isAPI() ) {
         new \Aptoma\Twig\Extension\MarkdownExtension(new \Aptoma\Twig\Extension\MarkdownEngine\MichelfMarkdownEngine()),
     );
 
-
     try {
         if (is_readable($path = __ROOT__ . 'public/themes/' . $themeconfig['theme'] . DS . 'functions.php')) {
             require $path;
@@ -139,7 +132,6 @@ if( !$app->isAPI() ) {
     } catch (\PDOException $e) {
         $app->getLog()->error($e->getMessage());
     }
-
 
     $app->hook('slim.before.dispatch', function () use ($app) {
 
@@ -160,18 +152,20 @@ if( !$app->isAPI() ) {
 
             $app->applyHook('after.page');
 
-            $templateData = (object)array(
-                'page_id' => $app->page->id,
-                'lang' => $app->config('language'),
-                'get' => $_GET,
-                'post' => $_POST,
-                'cookie' => $_COOKIE,
-                'session' => $_SESSION,
-                'production' => !HTML5_DEBUG
-            );
+            if( $app->page ) {
+                $templateData = (object)array(
+                    'page_id' => $app->page->id,
+                    'lang' => $app->config('language'),
+                    'get' => $_GET,
+                    'post' => $_POST,
+                    'cookie' => $_COOKIE,
+                    'session' => $_SESSION,
+                    'production' => ($app->getMode()=='production')
+                );
 
-            $app->applyHook('data', $templateData);
-            $app->view()->appendData((array)$templateData);
+                $app->applyHook('data', $templateData);
+                $app->view()->appendData((array)$templateData);
+            }
 
         }
     });
