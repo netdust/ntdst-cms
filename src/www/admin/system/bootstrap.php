@@ -59,7 +59,7 @@ $app->configureMode('production', function () use ($app) {
 // Only invoked if mode is "development"
 $app->configureMode('development', function () use ($app) {
     $app->config(array(
-        'base'=> dirname($app->request->getScriptName()).'/www'
+        'base'=> $app->request->getScriptName()
     ));
 });
 
@@ -84,7 +84,6 @@ try {
     ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 } catch (\PDOException $e) {
     exit( $e->getMessage() );
-    $app->getLog()->error($e->getMessage());
 }
 
 
@@ -112,7 +111,7 @@ $view->twigTemplateDirs = array(
     __ROOT__ .'public/themes/'.$themeconfig['theme'].DS
 );
 $view->parserOptions = array(
-    'debug' => $app->config('debug'),
+    'debug' => true, //$app->config('debug'),
     'cache' => __ROOT__.'public/data/cache'
 );
 
