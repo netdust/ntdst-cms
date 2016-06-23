@@ -40,6 +40,7 @@
         'foundation'                : '../../../../bower_components/foundation/js/foundation',
         'dropzone'                  : '../../../../bower_components/dropzone/dist/dropzone-amd-module',
         'epiceditor'                : '../../../../bower_components/epiceditor/epiceditor/js/epiceditor',
+        'trumbowyg'                 : '../../../../bower_components/trumbowyg/src/trumbowyg',
         'listeditor'                : '../../../../bower_components/backbone-forms/distribution.amd/editors/list',
         'sortablelist'              : '../../../../bower_components/nestedSortable/jquery.ui.nestedSortable',
         'spinner'                   : '../../../../bower_components/spin.js/spin'

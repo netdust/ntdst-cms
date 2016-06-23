@@ -174,7 +174,7 @@ gulp.task( "devProduction", function() {
 });
 
 /** Livereload */
-gulp.task( "watch", [ "template", "styles" ], function() {
+gulp.task( "watch", [ "styles" ], function() {
 	$.livereload();
 
 	/** Watch for livereoad */
@@ -202,7 +202,6 @@ gulp.task( "build", function () {
 	require('run-sequence')(
 		"envProduction",
 		"clean",
-		"template",
 		"styles",
 		"copy",
 		"buildjs",
