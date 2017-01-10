@@ -2,7 +2,7 @@
 /* global $: true */
 "use strict";
 
-var src = './src/';
+var src = './';
 
 var gulp = require( "gulp" ),
 	/** @type {Object} Loader of Gulp plugins from `package.json` */
@@ -22,9 +22,9 @@ var gulp = require( "gulp" ),
 	cssminSrc = {
 		development: [
 			/** The banner of `style.css` */
-			src + "www/admin/front/css/banner.css",
+			src + "admin/front/css/banner.css",
 			/** Theme style */
-			src + "www/admin/front/css/style.css"
+			src + "admin/front/css/style.css"
 		],
 		production: [
 			/** Normalize */
@@ -36,9 +36,9 @@ var gulp = require( "gulp" ),
 			/** dropzone */
 			src + "bower_components/dropzone/dist/dropzone.css",
 			/** The banner of `style.css` */
-			src + "www/admin/front/css/banner.css",
+			src + "admin/front/css/banner.css",
 			/** Theme style */
-			src + "www/admin/front/css/style.css"
+			src + "admin/front/css/style.css"
 		]
 	},
 	/** @type {String} Used inside task for set the mode to 'development' or 'production' */
@@ -73,12 +73,16 @@ gulp.task( "clean-dist", function(cb) {
 /** Copy */
 gulp.task( "copy", function() {
 	return gulp.src([
-			src + "www/.htaccess",
-			src + "www/**/*.{php,html,css,js,json}",
-			src + "www/**/*.{jpg,png,svg,gif,webp,ico}",
-			src + "www/**/*.{woff,woff2,ttf,otf,eot,svg}",
+			src + ".htaccess",
+			src + "**/*.{php,html,css,js,json}",
+			src + "**/*.{jpg,png,svg,gif,webp,ico}",
+			src + "**/*.{woff,woff2,ttf,otf,eot,svg}",
 
-			"!" + src + "/www/**/*/vendor/**/*{.json,.markdown,.mdown,.md,.yml,.dist,.gitignore,examples,examples/**,tests,tests/**,test,test/**,doc,doc/**,docs,docs/**}"
+			"!" + src + "**/*/vendor/**/*{.json,.markdown,.mdown,.md,.yml,.dist,.gitignore,examples,examples/**,tests,tests/**,test,test/**,doc,doc/**,docs,docs/**}",
+			"!" + src + "bower_components/**/*",
+			"!" + src + "node_modules/**/*",
+			"!" + src + "dist/**/*",
+            "!" + src + "{bower.json,build.js,composer.json,debug.php,gulpfile.js,package.json}"
 		])
 		.pipe( gulp.dest( "dist" ) );
 });
@@ -98,7 +102,7 @@ gulp.task('postcss', function () {
 	return stream.on( "error", function( e ) {
 			console.error( e );
 		})
-		.pipe( gulp.dest( src + 'www/admin/front/css' ) );
+		.pipe( gulp.dest( src + 'admin/front/css' ) );
 });
 
 /** CSS Preprocessors */
@@ -127,13 +131,13 @@ gulp.task( "styles", function() {
 	return stream.on( "error", function( e ) {
 			console.error( e );
 		})
-		.pipe( gulp.dest( src + 'www/admin/front/css' ) );
+		.pipe( gulp.dest( src + 'admin/front/css' ) );
 });
 
 /** JSHint */
 gulp.task( "jshint", function () {
 	/** Test all `js` files exclude those in the `lib` folder */
-	return gulp.src( [src + "www/admin/front/**/*.js", !src + "www/admin/front/**/*/lib/*.js"] )
+	return gulp.src( [src + "admin/front/**/*.js", !src + "admin/front/**/*/lib/*.js"] )
 		.pipe( $.jshint() )
 		.pipe( $.jshint.reporter( "jshint-stylish" ) )
 		.pipe( $.jshint.reporter( "fail" ) );
@@ -147,7 +151,7 @@ gulp.task( "template", function() {
 
     return gulp.src( src + "debug.php" )
         .pipe( $.template({ is_debug: is_debug }) )
-        .pipe( gulp.dest( src + "www/admin/system" ) );
+        .pipe( gulp.dest( src + "admin/system" ) );
 });
 
 /** Uglify */
@@ -175,17 +179,17 @@ gulp.task( "devProduction", function() {
 
 /** Livereload */
 gulp.task( "watch", [ "styles" ], function() {
-	$.livereload();
+	//$.livereload();
 
 	/** Watch for livereoad */
-	gulp.watch([
-		src + "**/*.js",
-		src + "**/*.php",
-		src + "**/*.css"
-	]).on( "change", function( file ) {
-		console.log( file.path );
-		$.livereload.changed( file.path );
-	});
+	//gulp.watch([
+	//	src + "**/*.js",
+	//	src + "**/*.php",
+	//	src + "**/*.css"
+	//]).on( "change", function( file ) {
+	//	console.log( file.path );
+	//	$.livereload.changed( file.path );
+	//});
 
 	/** Watch for autoprefix */
 	gulp.watch( [

@@ -23,7 +23,7 @@
   ],
   "type": "cms",
   "config": {
-    "vendor-dir": "./src/www/system/vendor"
+    "vendor-dir": "./admin/system/vendor"
   },
   "require": {
     "php": ">=5.4",
